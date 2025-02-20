@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@ant-design/icons':
+        specifier: ^5.6.1
+        version: 5.6.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@next/font':
         specifier: ^14.2.15
         version: 14.2.15(next@15.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0))

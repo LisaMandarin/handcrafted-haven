@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { poppins } from "./styles/fonts";
 import "./styles/globals.css";
 import TopNav from "@/components/TopNav";
-
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
@@ -31,7 +31,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} bg-custom-yellow-1 flex flex-col`}>
         <TopNav />
-        {children}
+        <div className="px-6 min-h-[calc(100vh-160px)]">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

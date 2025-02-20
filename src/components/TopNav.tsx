@@ -1,11 +1,10 @@
 "use client";
 
 import Hamburger from "hamburger-react";
-;
 import Image from "next/image";
 import { IoSearch } from "react-icons/io5";
-import { useState } from "react"
 import { SideMenu } from "./SideMenu";
+import { useState } from "react"
 
 
 export default function TopNav() {
