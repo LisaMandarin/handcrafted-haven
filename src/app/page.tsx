@@ -8,6 +8,5 @@ export default async function Home() {
     return <div>Error fetching categories</div>
   }
     const {data} = await res.json()
-  console.log('categories: ', data)
-  return <div>Home Page</div>;
+  return <div className="font-extrabold text-2xl">Home Page</div>;
 }

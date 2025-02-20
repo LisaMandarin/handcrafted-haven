@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+.side-menu-link {
+  color: #ffe6a7;
+  text-decoration: none;
+}
+
+.side-menu-link:hover {
+  color: #ffe6a7;
+  text-decoration: underline;
+}

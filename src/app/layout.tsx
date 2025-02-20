@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { poppins } from "./styles/fonts";
+import "./styles/globals.css";
+import TopNav from "@/components/TopNav";
+
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
@@ -22,9 +25,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+
   return (
     <html lang="en">
-      <body>
+      <body className={`${poppins.className} bg-custom-yellow-1 flex flex-col`}>
+        <TopNav />
         {children}
       </body>
     </html>
