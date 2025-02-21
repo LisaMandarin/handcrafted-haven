@@ -86,7 +86,7 @@ export default async function Home() {
       <div className="py-4">
         <h2 className="text-2xl font-bold">What&apos;s Popular</h2>
         <div className="flex flex-row flex-wrap gap-4 justify-between">
-          {popularProducts.map((product: {id: string, product_name: string, image_url: string, rate: number}) => (
+          {popularProducts.map((product: {id: string, product_name: string, image_url: string, rate: number, review_count: number}) => (
             <ProductCard key={product.id} id={product.id} product_name={product.product_name} image_url={product.image_url} rate={product.rate} review_count={product.review_count}/>
           ))}
         </div>
