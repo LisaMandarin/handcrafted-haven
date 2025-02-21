@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
+import ArtisanCard from "@/components/ArtisanCard";
 
 export default async function Home() {
   const latestProdRes = await fetch(
@@ -27,18 +28,31 @@ export default async function Home() {
   }
 
   const {data: popularProducts } = await popularProdRes.json();
-  console.log('popular: ', popularProducts)
-  console.log('latest: ', latestProducts)
 
+  const randomArtisanRes = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchRandomArtisan`, {
+      method: "GET",
+      cache: "no-cache"
+    }
+  )
+
+  if (!randomArtisanRes.ok) {
+    console.error("Unable to fetch random artisan: ", randomArtisanRes.statusText)
+  }
+
+  const {data: randomArtisan} = await randomArtisanRes.json();
+  console.log('random artisan: ', randomArtisan)
+  
   return (
     <>
+      {/* hero section */}
       <div className="relative">
         <Image
           src="/hero-image.webp"
           width={1000}
           height={700}
           alt="artisans' works"
-          className="rounded-lg shadow-lg opacity-70"
+          className="rounded-lg shadow-lg opacity-80"
           priority={true}
         />
         <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-custom-dark-brown text-custom-yellow-1 text-xl px-4 py-3 rounded-xl hover:bg-custom-yellow-1 hover:text-custom-dark-brown active:bg-custom-brown-1 active:text-custom-yellow-1">
@@ -64,6 +78,16 @@ export default async function Home() {
             <ProductCard key={product.id} id={product.id} product_name={product.product_name} image_url={product.image_url} rate={product.rate}/>
           ))}
         </div>
+      </div>
+
+      {/* random artisan */}
+      <div className="py-4">
+          <h2 className="text-2xl font-bold">Meet the Artisan</h2>
+          {randomArtisan ? (
+            <ArtisanCard key={randomArtisan.id} id={randomArtisan.id} image_url={randomArtisan.image_url} first_name={randomArtisan.first_name} last_name={randomArtisan.last_name} introduction={randomArtisan.introduction}/>
+          ) : (
+            <div>Unable to fetch a random artisan</div>
+          )}
       </div>
     </>
   );

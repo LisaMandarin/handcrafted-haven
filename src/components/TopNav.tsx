@@ -13,7 +13,7 @@ export default function TopNav() {
     const onClose = () => setOpen(false)
 
   return (
-    <div className="px-6 pt-6 flex flex-row items-center">
+    <div className="px-6 pt-3 flex flex-row items-center">
       <Hamburger toggled={isOpen} toggle={setOpen} />
       <div className="w-8 h-8 mx-4">
         <Link href="/">

@@ -2,14 +2,11 @@ import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 async function listData() {
     const result = await sql`
-        SELECT p.id, p.product_name, p.image_url, ROUND(COALESCE(AVG(r.rate), 0), 1) AS "averageRate"
-        FROM products p
-        LEFT JOIN reviews r ON p.id = r.product_id
-        GROUP BY (p.id)
-        ORDER BY ROUND(COALESCE(AVG(r.rate), 0), 1) DESC
-        LIMIT 3
+        SELECT * FROM artisans
+        ORDER BY RANDOM()
+        LIMIT 1
     `
-    return result.rows
+    return result.rows[0]
 }
 
 export async function GET() {

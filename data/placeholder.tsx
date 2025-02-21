@@ -138,7 +138,7 @@ const artisans = [
     address: "1600 Pennsylvania Avenue NW, Washington, DC 20500, USA",
     image_url: "/artisans/artisan1.webp",
     introduction:
-      "Hello! I'm Alex Johnson, an experienced seller specializing in premium home goods and unique d\u00e9cor items...",
+      "Hello! I'm Alex Johnson, a dedicated artisan specializing in handcrafted accessories and home decor. My passion lies in creating intricate textile pieces, elegant jewelry, and stylish leather goods that blend functionality with artistic flair. From cozy crocheted scarves and embroidered brooches to vintage-inspired rings and handcrafted pendants, every item in my collection is designed with love and attention to detail. I also enjoy crafting unique pop-up greeting cards and dollhouse miniatures, offering my customers beautifully crafted keepsakes and collectibles. Each piece I create is a reflection of my dedication to craftsmanship, ensuring that my customers receive high-quality, one-of-a-kind treasures that bring joy and elegance to their everyday lives.",
     user_id: users[0].id,
   },
   {
@@ -148,7 +148,7 @@ const artisans = [
     address: "100 Queen St W, Toronto, ON M5H 2N2, Canada",
     image_url: "/artisans/artisan2.webp",
     introduction:
-      "Hi there! I'm Sophia Williams, a passionate artisan and seller of handmade jewelry and artisan crafts...",
+      "Hi there! I'm Sophia Williams, a passionate artisan with a deep love for creating beautiful glass art, home decor, and unique handmade accessories. My work features stunning mosaic lanterns, intricate glass candle holders, and charming terrariums that bring a touch of nature indoors. I also craft elegant wooden kitchenware and delightful scented candles, perfect for adding warmth and personality to any space. My goal is to blend creativity with sustainability, ensuring that every piece I design not only enhances your home but also supports eco-friendly living. I take pride in offering handcrafted treasures that reflect both artistry and functionality, making every item special and meaningful.",
     user_id: users[1].id,
   },
   {
@@ -158,7 +158,7 @@ const artisans = [
     address: "1 Macquarie St, Sydney NSW 2000, Australia",
     image_url: "/artisans/artisan3.webp",
     introduction:
-      "Greetings! I'm Michael Lee, a ceramic artisan dedicated to crafting high-quality pottery and home d\u00e9cor...",
+      "Greetings! I'm Michael Lee, a dedicated artisan with a passion for ceramics, wooden crafts, and home essentials. My specialty lies in creating exquisite pottery, hand-carved wooden sculptures, and luxurious bath products that offer a spa-like experience at home. From intricately designed Kintsugi ceramic bowls to hand-carved wooden elephants and aromatic bath bomb sets, every piece I create is crafted with care and precision. I believe that art should be both beautiful and practical, which is why I strive to make products that enhance daily life while adding a touch of artistic elegance. My collection is designed for those who appreciate craftsmanship, tradition, and a connection to nature.",
     user_id: users[2].id,
   },
   {
@@ -168,17 +168,17 @@ const artisans = [
     address: "10 Downing St, London SW1A 2AA, UK",
     image_url: "/artisans/artisan4.webp",
     introduction:
-      "Hello! I'm Emma Carter, a textile artist and weaver specializing in handmade fabrics and home textiles...",
+      "Hello! I'm Emma Carter, a textile artist and craftswoman with a passion for handmade fashion, accessories, and personalized keepsakes. I create cozy crocheted scarves, stylish leather keychains, and adorable handmade dolls, each carefully designed to bring warmth and charm to your life. My collection also includes vintage-inspired bookmarks, elegant leather wallets, and thoughtful DIY crafting kits, making my work perfect for those who love handmade artistry. I am inspired by traditional craftsmanship and modern aesthetics, and I take pride in offering unique, high-quality pieces that tell a story. Whether you're looking for a meaningful gift or a stylish addition to your wardrobe, my handmade creations are designed with love and dedication.",
     user_id: users[3].id,
   },
   {
     id: "c297ea25-f7bf-4c75-827a-745a3675e849", //4
     first_name: "Pierre",
-    last_name: "Dopont",
+    last_name: "Dupont",
     address: "1 Rue de Rivoli, 75001 Paris, France",
     image_url: "/artisans/artisan5.webp",
     introduction:
-      "Bonjour! I'm Pierre Dupont, a woodcraft artisan passionate about creating fine wooden furniture and decorative pieces...",
+      "Bonjour! I'm Pierre Dupont, a skilled woodcraft artisan dedicated to creating elegant and functional handcrafted pieces. My specialty lies in beautifully engraved wooden kitchenware, finely crafted wooden jewelry boxes, and unique wood and resin decor pieces that blend natural beauty with artistic detail. I also design handcrafted mosaic vases and artistic home accents that add a touch of sophistication to any space. My philosophy is to bring craftsmanship and sustainability together, using high-quality materials to create timeless pieces that are both decorative and practical. Whether you're looking for a heartfelt gift or a statement decor piece, my handcrafted works are designed to bring joy and artistry into your home.",
     user_id: users[4].id,
   },
 ];
