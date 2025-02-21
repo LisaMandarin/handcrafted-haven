@@ -1,4 +1,5 @@
-import { Poppins, Racing_Sans_One } from "@next/font/google";
+// import { Poppins, Racing_Sans_One } from "@next/font/google";
+import {Poppins, Racing_Sans_One} from "next/font/google"
 
 export const poppins = Poppins({
   subsets: ["latin"],
