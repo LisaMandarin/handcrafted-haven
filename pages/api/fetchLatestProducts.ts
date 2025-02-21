@@ -6,7 +6,7 @@ async function fetchLatest3Products() {
         SELECT p.id, p.product_name, p.price, p.image_url
         FROM products p
         ORDER BY p.created_at DESC
-        LIMIT 3
+        LIMIT 4
     `
     return result.rows || []
 }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import ArtisanCard from "@/components/ArtisanCard";
 
-export default async function Home() {
+async function fetchLatest() {
   const latestProdRes = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchLatestProducts`,
     {
@@ -14,8 +14,11 @@ export default async function Home() {
   if (!latestProdRes.ok) {
     console.error("Unable to fetch the latest 3 products: ", latestProdRes.statusText);
   }
-  const { data: latestProducts } = await latestProdRes.json();
+  const { data } = await latestProdRes.json();
+  return data
+}
 
+async function fetchPopular() {
   const popularProdRes = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchPopularProducts`, {
       method: "GET",
@@ -27,8 +30,11 @@ export default async function Home() {
     console.error("Unable to fetch the most popular 3 products: ", popularProdRes.statusText)
   }
 
-  const {data: popularProducts } = await popularProdRes.json();
+  const {data} = await popularProdRes.json();
+  return data
+}
 
+async function fetchRandom() {
   const randomArtisanRes = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchRandomArtisan`, {
       method: "GET",
@@ -40,8 +46,14 @@ export default async function Home() {
     console.error("Unable to fetch random artisan: ", randomArtisanRes.statusText)
   }
 
-  const {data: randomArtisan} = await randomArtisanRes.json();
-  console.log('random artisan: ', randomArtisan)
+  const {data} = await randomArtisanRes.json();
+  return data
+}
+
+export default async function Home() {
+  const [latestProducts, popularProducts, randomArtisan] = await Promise.all([
+    fetchLatest(), fetchPopular(), fetchRandom()
+  ]);
   
   return (
     <>
@@ -63,7 +75,7 @@ export default async function Home() {
       {/* latest products */}
       <div className="py-4">
         <h2 className="text-2xl font-bold">What&apos;s New</h2>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row flex-wrap gap-4 justify-between">
           {latestProducts.map((product: {id: string, product_name: string, image_url: string, price: number}) => (
             <ProductCard key={product.id} id={product.id} product_name={product.product_name} image_url={product.image_url} price={product.price}/>
           ))}
@@ -73,9 +85,9 @@ export default async function Home() {
       {/* most popular */}
       <div className="py-4">
         <h2 className="text-2xl font-bold">What&apos;s Popular</h2>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row flex-wrap gap-4 justify-between">
           {popularProducts.map((product: {id: string, product_name: string, image_url: string, rate: number}) => (
-            <ProductCard key={product.id} id={product.id} product_name={product.product_name} image_url={product.image_url} rate={product.rate}/>
+            <ProductCard key={product.id} id={product.id} product_name={product.product_name} image_url={product.image_url} rate={product.rate} review_count={product.review_count}/>
           ))}
         </div>
       </div>
