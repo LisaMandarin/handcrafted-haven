@@ -1,14 +1,15 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
+const id = "06e99fdc-6d59-4532-8893-22f9a9ebda98"  // product
 async function listData() {
     const result = await sql`
-        SELECT p.id, p.product_name, p.image_url, ROUND(COALESCE(AVG(r.rate), 0), 1) AS rate, COUNT(r.id) AS review_count
+        SELECT p.id, p.product_name, p.price, p.quantity, p.description, p.image_url, p.created_at, a.id AS artisan_id, a.first_name, a.last_name, c.id AS category_id, c.category_name
         FROM products p
-        LEFT JOIN reviews r ON p.id = r.product_id
-        GROUP BY p.id
-        ORDER BY rate DESC, review_count
-        LIMIT 4
-    `;
+        JOIN artisans a ON p.artisan_id = a.id
+        JOIN categories c ON p.category_id = c.id
+        WHERE p.id = ${id}
+        LIMIT 1
+    `
     return result.rows
 }
 
