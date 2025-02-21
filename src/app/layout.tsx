@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} bg-custom-yellow-1 flex flex-col`}>
         <TopNav />
-        <div className="px-6 min-h-[calc(100vh-160px)]">
+        <div className="px-6 lg:px-12 min-h-[calc(100vh-160px)]">
           {children}
         </div>
         <Footer />
