@@ -12,7 +12,7 @@ export default function ArtisanCard({id, image_url, first_name, last_name, intro
 
     return (
         <div>
-            <Image src={image_url} alt={`Image of ${first_name} ${last_name}`} width={300} height={400} className="rounded-xl"/>
+            <Image src={image_url} alt={`Image of ${first_name} ${last_name}`} width={300} height={400} className="rounded-xl mx-auto"/>
             <section>
                 <h3 className="text-xl underline my-2">{first_name} {last_name}</h3>
                 <p className="line-clamp-4 indent-12">{introduction}</p>
