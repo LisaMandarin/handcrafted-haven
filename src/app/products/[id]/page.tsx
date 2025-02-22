@@ -63,17 +63,21 @@ export default async function ProductIdPage({
         />
       )}
       <h2 className="text-2xl font-bold my-2">Reviews</h2>
-      {reviews.length > 0 &&
-        reviews.map((review) => (
-          <ReviewListing
-            key={review.id}
-            id={review.id}
-            created_at={review.created_at}
-            rate={review.rate}
-            comment={review.comment}
-            username={review.username}
-          />
-        ))}
+      <div className="flex flex-col">
+        {reviews.length > 0 ?
+          reviews.map((review) => (
+            <ReviewListing
+              key={review.id}
+              id={review.id}
+              created_at={review.created_at}
+              rate={review.rate}
+              comment={review.comment}
+              username={review.username}
+            />
+          )): (
+            <>No reviews yet</>
+          )}
+      </div>
     </div>
   );
 }

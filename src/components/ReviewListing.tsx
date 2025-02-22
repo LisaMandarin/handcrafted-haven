@@ -9,7 +9,7 @@ type ReviewListingProps = {
     username: string
 }
 
-export default function ReviewListing({id, created_at, rate, comment, username}: ReviewListingProps) {
+export default function ReviewListing({ created_at, rate, comment, username}: ReviewListingProps) {
     return (
         <div className="rounded-xl shadow-xl mb-3">
             <div className="bg-custom-brown-1 text-white p-2 rounded-t-xl flex flex-row gap-1 items-end">
