@@ -1,4 +1,5 @@
 import ProductDetail from "@/components/ProductDetail";
+import ReviewListing from "@/components/ReviewListing";
 
 async function fetchProduct(id: string) {
   const res = await fetch(
@@ -12,13 +13,38 @@ async function fetchProduct(id: string) {
   return data;
 }
 
+type ReviewsProps = {
+  id: string;
+  created_at: string;
+  rate: number;
+  comment: string;
+  username: string;
+};
+
+async function listReviewsByProductId(id: string): Promise<ReviewsProps[]> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews-product/${id}`
+  );
+
+  if (!res.ok) {
+    console.error("Unable to list reviews: ", res.statusText);
+  }
+
+  const { data } = await res.json();
+  return data;
+}
+
 export default async function ProductIdPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = await fetchProduct(id);
+  const [product, reviews] = await Promise.all([
+    fetchProduct(id),
+    listReviewsByProductId(id),
+  ]);
+
   return (
     <div>
       {product && (
@@ -36,6 +62,18 @@ export default async function ProductIdPage({
           artisan_id={product.artisan_id}
         />
       )}
+      <h2 className="text-2xl font-bold my-2">Reviews</h2>
+      {reviews.length > 0 &&
+        reviews.map((review) => (
+          <ReviewListing
+            key={review.id}
+            id={review.id}
+            created_at={review.created_at}
+            rate={review.rate}
+            comment={review.comment}
+            username={review.username}
+          />
+        ))}
     </div>
   );
 }

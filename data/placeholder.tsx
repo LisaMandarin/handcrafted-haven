@@ -570,7 +570,6 @@ const reviews = [
   },
   {
     id: "82edf010-1d56-4a0f-8820-1e8a9cfc1d75",
-    title: "Elegant and well-crafted",
     created_at: "2024-12-05 00:00:00+00",
     rate: "4.5",
     comment:
@@ -580,7 +579,6 @@ const reviews = [
   },
   {
     id: "89c837c3-0114-41f7-8efa-83e7c1266ff5",
-    title: "Soft and warm!",
     created_at: "2024-11-15 00:00:00+00",
     rate: "4.5",
     comment:
@@ -590,7 +588,6 @@ const reviews = [
   },
   {
     id: "8bdaee39-7c5b-4b5c-a6b0-0c2c7741e123",
-    title: "Absolutely stunning!",
     created_at: "2024-11-20 00:00:00+00",
     rate: "5.0",
     comment:
@@ -600,7 +597,6 @@ const reviews = [
   },
   {
     id: "b9ab5edc-82a2-47d7-b3f1-a22c4423832d",
-    title: "Decent but not very strong",
     created_at: "2024-10-20 00:00:00+00",
     rate: "3.0",
     comment:
@@ -610,7 +606,6 @@ const reviews = [
   },
   {
     id: "d8ba327b-bf7a-4231-ab38-13e318b33c65",
-    title: "Great product with a minor flaw",
     created_at: "2024-11-15 00:00:00+00",
     rate: "4.5",
     comment:
@@ -620,7 +615,6 @@ const reviews = [
   },
   {
     id: "df12b456-7890-4c3d-b9e3-123456789abc",
-    title: "Elegant and meaningful",
     created_at: "2025-02-01 00:00:00+00",
     rate: "4.0",
     comment:
@@ -630,7 +624,6 @@ const reviews = [
   },
   {
     id: "ecb7d41e-9561-479f-92e7-82584353e714",
-    title: "Beautiful but slightly smaller than expected",
     created_at: "2024-11-25 00:00:00+00",
     rate: "4.0",
     comment:
@@ -640,7 +633,6 @@ const reviews = [
   },
   {
     id: "ecd8a8e9-3b4a-4e4e-84a0-5d9651983004",
-    title: "Absolutely love this!",
     created_at: "2024-11-05 00:00:00+00",
     rate: "5.0",
     comment:

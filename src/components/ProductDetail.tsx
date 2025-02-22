@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumb } from "antd";
 import dayjs from "dayjs";
-import ReviewListing from "./ReviewListing";
 
 type ProductDetailProps = {
   product_name: string;
@@ -99,9 +98,6 @@ export default function ProductDetail({
           </div>
         </div>
       </div>
-
-      {/* reviews section */}
-      <ReviewListing />
     </>
   );
 }
