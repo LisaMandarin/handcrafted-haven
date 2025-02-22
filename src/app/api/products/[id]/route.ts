@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
 async function fetchProductById(id: string) {
   const result = await sql`
@@ -13,35 +13,36 @@ async function fetchProductById(id: string) {
   return result.rows[0] || null;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function GET(req: Request, {params} : {params: Promise<{id: string}>}) {
   try {
-    const { id } = req.query;
+    const { id } = await params;
 
-    if (!id || typeof id !== "string") {
-      return res.status(400).json({
-        message: "Invalid product ID",
-      });
+    if (!id) {
+      return NextResponse.json({ message: "Invalid product ID" }, { status: 400 });
     }
 
     const result = await fetchProductById(id);
 
     if (result) {
-      res.status(200).json({
+      return NextResponse.json({
         message: "Fetch products by ID successfully",
         data: result,
       });
     } else {
-      res.status(404).json({
-        message: "No products ",
-      });
+      return NextResponse.json(
+        {
+          message: "No products ",
+        },
+        { status: 404 }
+      );
     }
   } catch (error) {
-    res.status(500).json({
-      message: "Server Error while fetching product by id",
-      error: error instanceof Error ? error.message : error,
-    });
+    return NextResponse.json(
+      {
+        message: "Server Error while fetching product by id",
+        error: error instanceof Error ? error.message : error,
+      },
+      { status: 500 }
+    );
   }
 }

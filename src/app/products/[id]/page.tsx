@@ -2,10 +2,7 @@ import ProductDetail from "@/components/ProductDetail";
 
 async function fetchProduct(id: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchProductById/${id}`,
-    {
-      method: "GET",
-    }
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`
   );
 
   if (!res.ok) {
@@ -20,7 +17,7 @@ export default async function ProductIdPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const {id} = await params
+  const { id } = await params;
   const product = await fetchProduct(id);
   return (
     <div>

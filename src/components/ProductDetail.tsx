@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumb } from "antd";
 import dayjs from "dayjs";
+import ReviewListing from "./ReviewListing";
 
 type ProductDetailProps = {
   product_name: string;
@@ -31,7 +32,18 @@ export default function ProductDetail({
   artisan_id
 }: ProductDetailProps) {
   const breadcrumbItems = [
-    { title: "Home" },
+    { title: (
+      <Link href='/'>
+        Home
+      </Link>
+    )},
+    { title: (
+      <Link href='/categories'>
+        Categories
+      </Link>
+    )
+
+    },
     {
       title: (
         <Link
@@ -51,7 +63,7 @@ export default function ProductDetail({
       <Breadcrumb items={breadcrumbItems} className="mb-4" />
       <div className="flex flex-col items-center">
 
-        {/* product card */}
+        {/* product header card */}
         <div className="flex flex-col items-center w-[332px] bg-white">
           <Image
             src={image_url}
@@ -87,7 +99,9 @@ export default function ProductDetail({
           </div>
         </div>
       </div>
-    
+
+      {/* reviews section */}
+      <ReviewListing />
     </>
   );
 }

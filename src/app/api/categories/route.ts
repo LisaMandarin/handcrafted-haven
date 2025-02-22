@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
 async function listCategories() {
   
@@ -9,25 +9,25 @@ async function listCategories() {
     return result.rows || [];
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
     try {
         const categories = await listCategories()
         if (categories.length > 0) {
-            return res.status(200).json({
+            return NextResponse.json({
                 message: 'List categories successfully',
                 data: categories
-            })
+            }, {status: 200})
         } else {
-            return res.status(404).json({
+            return NextResponse.json({
                 message: 'No categories found',
                 data: []
-            })
+            }, {status: 404})
         }
     } catch (error: unknown) {
-        return res.status(500).json({
+        return NextResponse.json({
             message: 'Failed to list categories',
             error: error instanceof Error ? error.message : error
-        })
+        }, {status: 500})
     }
     
 }

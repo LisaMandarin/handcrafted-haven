@@ -1,12 +1,6 @@
-import { db, VercelPoolClient} from "@vercel/postgres";
+import { db, VercelPoolClient } from "@vercel/postgres";
 import bcrypt from "bcryptjs";
-import {
-  categories,
-  users,
-  artisans,
-  products,
-  reviews,
-} from "../../../data/placeholder";
+import { categories, users, artisans,  } from "../../../../data/placeholder";
 
 async function seedCategories(client: VercelPoolClient) {
   try {
@@ -141,13 +135,14 @@ export async function GET() {
       { status: 200 }
     );
   } catch (error) {
-    return Response.json({
-      message: "Server Error while seeding data",
-      errors: error instanceof Error ? error.message : error,
-    }, 
-    { status: 500}
-  );
+    return Response.json(
+      {
+        message: "Server Error while seeding data",
+        errors: error instanceof Error ? error.message : error,
+      },
+      { status: 500 }
+    );
   } finally {
-    client.release()
+    client.release();
   }
 }
