@@ -5,7 +5,9 @@ import Link from "next/link";
 
 async function fetchLatest() {
   const latestProdRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/latest-prod`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/latest-prod`, {
+      cache: "no-store"
+    }
   );
 
   if (!latestProdRes.ok) {
@@ -20,7 +22,9 @@ async function fetchLatest() {
 
 async function fetchPopular() {
   const popularProdRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/popular-prod`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/popular-prod`, {
+      cache: "no-store"
+    }
   );
 
   if (!popularProdRes.ok) {
@@ -36,7 +40,9 @@ async function fetchPopular() {
 
 async function fetchRandom() {
   const randomArtisanRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/random-artisan`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/random-artisan`, {
+      cache: "no-store"
+    }
   );
 
   if (!randomArtisanRes.ok) {

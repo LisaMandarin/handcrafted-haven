@@ -3,7 +3,8 @@ import ReviewListing from "@/components/ReviewListing";
 
 async function fetchProduct(id: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`,
+    {cache: "no-store"}
   );
 
   if (!res.ok) {
@@ -23,7 +24,8 @@ type ReviewsProps = {
 
 async function listReviewsByProductId(id: string): Promise<ReviewsProps[]> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews-product/${id}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews-product/${id}`,
+    {cache: "no-store"}
   );
 
   if (!res.ok) {

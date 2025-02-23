@@ -1,6 +1,6 @@
 import { db, VercelPoolClient } from "@vercel/postgres";
 import bcrypt from "bcryptjs";
-import { categories, users, artisans,  } from "../../../../data/placeholder";
+import { categories, users, artisans, products, reviews  } from "../../../../data/placeholder";
 
 async function seedCategories(client: VercelPoolClient) {
   try {
