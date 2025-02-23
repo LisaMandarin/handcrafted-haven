@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
 import ArtisanCard from "@/components/ArtisanCard";
+import Link from "next/link";
 
 async function fetchLatest() {
   const latestProdRes = await fetch(
@@ -68,9 +69,11 @@ export default async function Home() {
           className="rounded-lg shadow-lg opacity-80"
           priority={true}
         />
-        <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-custom-dark-brown text-custom-yellow-1 text-xl lg:text-4xl px-4 lg:px-8 py-3 lg:py-6 rounded-xl hover:bg-custom-yellow-1 hover:text-custom-dark-brown active:bg-custom-brown-1 active:text-custom-yellow-1">
-          Be Part of Us
-        </button>
+        <Link href="/signup">
+          <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-custom-dark-brown text-custom-yellow-1 text-xl lg:text-4xl px-4 lg:px-8 py-3 lg:py-6 rounded-xl hover:bg-custom-yellow-1 hover:text-custom-dark-brown active:bg-custom-brown-1 active:text-custom-yellow-1">
+            Be Part of Us
+          </button>
+        </Link>
       </div>
 
       {/* latest products */}

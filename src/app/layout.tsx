@@ -3,6 +3,7 @@ import { poppins } from "./styles/fonts";
 import "./styles/globals.css";
 import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
@@ -30,11 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} bg-custom-yellow-1 flex flex-col`}>
-        <TopNav />
-        <div className="px-6 lg:px-12 min-h-[calc(100vh-160px)]">
-          {children}
-        </div>
-        <Footer />
+        <AntdRegistry>
+          <TopNav />
+          <div className="px-6 lg:px-12 min-h-[calc(100vh-160px)]">
+            {children}
+          </div>
+          <Footer />
+        </AntdRegistry>
       </body>
     </html>
   );
