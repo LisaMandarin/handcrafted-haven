@@ -50,8 +50,8 @@ async function seedArtisans(client: VercelPoolClient) {
     await Promise.all(
       artisans.map(
         (artisan) => client.sql`
-            INSERT INTO artisans (id, first_name, last_name, address, image_url, introduction, user_id)
-            VALUES (${artisan.id}, ${artisan.first_name}, ${artisan.last_name}, ${artisan.address}, ${artisan.image_url}, ${artisan.introduction}, ${artisan.user_id})
+            INSERT INTO artisans (id, first_name, last_name, address, image_url, introduction, user_id, created_at)
+            VALUES (${artisan.id}, ${artisan.first_name}, ${artisan.last_name}, ${artisan.address}, ${artisan.image_url}, ${artisan.introduction}, ${artisan.user_id}, ${artisan.created_at})
             ON CONFLICT (id) DO NOTHING
         `
       )
