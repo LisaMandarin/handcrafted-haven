@@ -19,9 +19,8 @@ type Category = {
 function SearchBar() {
   return (
     <div className="flex-grow relative">
-      <label htmlFor="search" className="sr-only" />
+      <label className="sr-only" />
       <input
-        id="search"
         placeholder="Search"
         className="rounded-full h-8 border border-custom-yellow-2 w-full p-4 focus:outline-none"
       />
