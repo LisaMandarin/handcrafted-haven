@@ -1,13 +1,15 @@
 "use client";
-import React, { useState } from "react";
+import { message } from "antd";
+import React, { useEffect, useState } from "react";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoEyeOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
 
-export default function Registration() {
-  const router = useRouter()
+export default function Registration2() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [msgApi, contextHolder] = message.useMessage();
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",
@@ -65,6 +67,22 @@ export default function Registration() {
     setErrors({ ...errors, [name]: validateField(name, value) });
   };
 
+  // show error message
+  const error = (content: string) => {
+    msgApi.open({
+      type: "error",
+      content: content,
+    });
+  };
+
+  // show success message
+  const success = (content: string) => {
+    msgApi.open({
+      type: "success",
+      content: content,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -86,7 +104,8 @@ export default function Registration() {
     };
 
     if (Object.values(newErrors).some(hasError)) {
-      alert("Form has errors");
+      setErrorMsg("Form has errors");
+      // alert("Form has errors");
       return;
     }
 
@@ -104,20 +123,33 @@ export default function Registration() {
       const result = await response.json();
 
       if (result.success) {
-        alert(`${result.message}`);
-        router.push('/login')
+        setErrorMsg(result.message);
+        // alert(`${result.message}`);
       } else {
-        alert(`${result.message}`);
+        setSuccessMsg(result.message);
+        // alert(`${result.message}`);
       }
     } catch (error) {
       console.error("Error during registration: ", error);
-      alert("An error occurred during registration");
+      setErrorMsg("An error occurred during registration");
+      // alert("An error occurred during registration");
     }
   };
+
+  useEffect(() => {
+    error(errorMsg);
+    setErrorMsg("");
+  }, [errorMsg]);
+
+  useEffect(() => {
+    success(successMsg);
+    setSuccessMsg("");
+  }, [successMsg]);
+
   return (
     <div className="max-w-[370px] w-full">
       <h2 className="text-2xl font-bold text-custom-dark-brown mb-4">
-        Registration
+        Registration 2
       </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="relative">
@@ -190,7 +222,7 @@ export default function Registration() {
           >
             {showConfirmPassword ? <AiOutlineEyeInvisible /> : <IoEyeOutline />}
           </span>
-          
+
           {errors.confirmPassword && (
             <p className="text-sm text-red-600 px-2 absolute left-0">
               {errors.confirmPassword}
