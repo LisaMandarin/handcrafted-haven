@@ -1,6 +1,7 @@
 import Login from "@/components/Login";
 import Image from "next/image";
 import { racing } from "../styles/fonts";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
@@ -16,7 +17,9 @@ export default function LoginPage() {
           height={700}
         />
       </div>
-      <Login />
+      <Suspense>
+        <Login />
+      </Suspense>
     </div>
   );
 }
