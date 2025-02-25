@@ -6,14 +6,20 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
-import { useSession } from "@/hooks/useSession";
 
-export default function SmallNav() {
+type Session = {
+  user: {
+    id: string;
+    email: string;
+  };
+} | null;
+
+export default function SmallNav({ session }: { session: Session }) {
   const [isOpen, setOpen] = useState(false); // toggle side menu
   const onClose = () => setOpen(false);
-  const session = useSession();
+
   return (
-    <div className="px-6 pt-3 flex flex-row items-center md:hidden">
+    <div className="px-6 pt-3 flex flex-row items-center">
       <Hamburger toggled={isOpen} toggle={setOpen} />
       <div className="w-8 h-8 mx-4">
         <Link href="/">

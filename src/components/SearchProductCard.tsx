@@ -1,14 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Rate } from "antd";
+
 
 type ProductCardProps = {
   id: string;
   product_name: string;
   image_url: string;
   price: number;
-  rate: number;
-  review_count: number;
 };
 
 export default function SearchProductCard({
@@ -16,8 +14,6 @@ export default function SearchProductCard({
   product_name,
   image_url,
   price,
-  rate,
-  review_count,
 }: ProductCardProps) {
   return (
     <Link href={`/products/${id}`}>
@@ -40,16 +36,6 @@ export default function SearchProductCard({
 
         <div className="px-1 text-sm sm:text-xl sm:mb-4 sm:mr-4 text-red-600 font-bold text-right">
           {price}
-        </div>
-
-        <div className="text-center">
-          <Rate
-            allowHalf
-            value={Number(rate)}
-            disabled
-            className="text-sm sm:text-xl sm:mb-4"
-          />
-          <span className="text-xs ml-1 text-gray-400">({review_count})</span>
         </div>
       </div>
     </Link>

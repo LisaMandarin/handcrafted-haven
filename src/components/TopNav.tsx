@@ -1,11 +1,19 @@
+"use client";
+
 import SmallNav from "./SmallNav";
 import LargeNav from "./LargeNav";
+import { useSession } from "@/hooks/useSession";
+export default function TopNav() {
+  const { session, setSession } = useSession();
 
-export default async function TopNav() {
   return (
     <>
-      <SmallNav />
-      <LargeNav/>
+      <div className="md:hidden">
+        <SmallNav session={session} />
+      </div>
+      <div className="hidden md:block">
+        <LargeNav session={session} setSession={setSession} />
+      </div>
     </>
   );
 }

@@ -13,7 +13,7 @@ export function useSession() {
   useEffect(() => {
     async function fetchSession() {
       try {
-        const response = await fetch("/api/auth/me", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/me`, {
           credentials: "include",
         });
 
@@ -30,5 +30,5 @@ export function useSession() {
     fetchSession();
   }, []);
 
-  return session
+  return { session, setSession };
 }

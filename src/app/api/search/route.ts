@@ -1,10 +1,8 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
-const id = "06e99fdc-6d59-4532-8893-22f9a9ebda98"  // product
-const query = "candle"
-const newQuery = `%${query}%`
-async function listData() {
-    const result = await sql`
+async function search(query: string) {
+    const newQuery = `%${query}%`
+    const { rows } = await sql`
         SELECT DISTINCT on (p.id)
             p.id,
             p.product_name,
@@ -25,16 +23,26 @@ async function listData() {
             OR r.comment ILIKE ${newQuery}
             OR u.username ILIKE ${newQuery}
         LIMIT 50
-    `
-    return result.rows
+    `;
+    return rows;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
-        const data = await listData();
-        return NextResponse.json({data}, {status: 200})
+        const { searchParams } = new URL(request.url);
+        const query = searchParams.get("query");
         
+        if (!query) {
+            return NextResponse.json({ error: "Query parameter is required" }, { status: 400 });
+        }
+
+        const result = await search(query);
+        
+        return NextResponse.json({
+            message: "Search successful",
+            data: result
+        }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ error}, {status: 500})
-    }
+        return NextResponse.json({ error }, { status: 500 });
+    }   
 }
