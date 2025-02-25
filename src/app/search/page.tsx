@@ -7,7 +7,7 @@ type Product = {
   price: number;
 }
 
-export default async function Search({ searchParams }: { searchParams: { query: string } }) {
+export default async function Search({ searchParams }: { searchParams: Promise<{ query: string }> }) {
   const { query } = await searchParams;
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/search?query=${query}`);
   

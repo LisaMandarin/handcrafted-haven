@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
-const id = "06e99fdc-6d59-4532-8893-22f9a9ebda98"  // product
+// const id = "06e99fdc-6d59-4532-8893-22f9a9ebda98"  // product
 const query = "candle"
 const newQuery = `%${query}%`
 async function listData() {
