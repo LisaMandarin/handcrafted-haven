@@ -1,6 +1,9 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { encode } from "next-auth/jwt";
+import { cookies } from "next/headers";
+
 
 async function login(email: string, password: string) {
   const result = await sql`
@@ -49,10 +52,24 @@ export async function POST(req: Request) {
       );
     }
 
+    const token = await encode({
+      token: {id: user.id, email: user.email},
+      secret: process.env.SESSION_SECRET || '',
+    })
+
+    const cookieStore = await cookies();
+    cookieStore.set("session_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60*60,  // 1 hr
+      sameSite: 'strict',
+      path: '/',
+    })
+    
     return NextResponse.json(
       {
         message: "Log in successfully",
-        data: user,
+        user: {email: user.email, id: user.id},
       },
       { status: 200 }
     );

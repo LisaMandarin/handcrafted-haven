@@ -1,10 +1,12 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
+  const searchParams = useSearchParams();  
+  const callbackUrl = searchParams.get("callbackUrl") || "/"
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,29 +30,21 @@ export default function Login() {
     }
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (!response.ok) {
-        alert("Invalid email or password");
+      const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(formData)
+      })
+      
+      if (!result?.ok) {
+        alert('Invalid email or password')
         return;
-      }
-
-      const { data } = await response.json();
-
-      if (data) {
-        alert("Log in successfully");
-        router.push("/");
-      }
+      } else {
+        alert('Logged in successfully')
+        router.replace(callbackUrl)
+      } 
     } catch (error) {
-      console.error("Login error: ", error);
-      alert("An error occurred.  Please try again.");
+      console.error(error);
     }
   };
 
@@ -71,7 +65,7 @@ export default function Login() {
         </div>
         <div>
           <input
-            type="text"
+            type="password"
             name="password"
             value={formData.password}
             onChange={onChange}

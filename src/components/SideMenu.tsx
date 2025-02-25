@@ -9,9 +9,14 @@ import Link from "next/link";
 export function SideMenu({
   isOpen,
   onClose,
+  session
 }: {
   isOpen: boolean;
   onClose: () => void;
+  session: {user: {
+    id: string;
+    email: string;
+  } } | null
 }) {
 
     // close the menu while clicking the link
@@ -53,16 +58,24 @@ export function SideMenu({
             </Link>
           </li>
           <div className="flex flex-col items-center gap-8">
-            <p>
-              <Link href="/login" className="side-menu-link" onClick={handleClick}>
-                Log In
-              </Link>
-            </p>
-            <p>
-              <Link href="/signup" className="side-menu-link" onClick={handleClick}>
-                Sign Up
-              </Link>
-            </p>
+            {session?.user ? (
+              <>
+                <p>
+                  <Link href="/login" className="side-menu-link" onClick={handleClick}>
+                    Log In
+                  </Link>
+                </p>
+                <p>
+                  <Link href="/signup" className="side-menu-link" onClick={handleClick}>
+                    Sign Up
+                  </Link>
+                </p>
+              </>
+            ): (
+              <p>
+                Sign Out
+              </p>
+            )}
           </div>
         </ul>
         <IoClose className="text-4xl mb-6 cursor-pointer" onClick={onClose} />

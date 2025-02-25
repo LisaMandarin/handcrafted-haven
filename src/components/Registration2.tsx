@@ -111,7 +111,7 @@
 
 //     try {
 //       const response = await fetch(
-//         `${process.env.NEXT_PUBLIC_BASE_URL}/api/register`,
+//         `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/register`,
 //         {
 //           method: "POST",
 //           headers: {

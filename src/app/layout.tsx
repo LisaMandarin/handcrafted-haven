@@ -26,18 +26,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
-
   return (
     <html lang="en">
       <body className={`${poppins.className} bg-custom-yellow-1 flex flex-col`}>
-        <AntdRegistry>
-          <TopNav />
-          <div className="px-6 lg:px-12 min-h-[calc(100vh-160px)]">
-            {children}
-          </div>
-          <Footer />
-        </AntdRegistry>
+        
+          <AntdRegistry>
+            <TopNav />
+            <div className="px-6 lg:px-12 min-h-[calc(100vh-160px)]">
+              {children}
+            </div>
+            <Footer />
+          </AntdRegistry>
+        
       </body>
     </html>
   );
