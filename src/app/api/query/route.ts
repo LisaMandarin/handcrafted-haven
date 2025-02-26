@@ -1,7 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 // const id = "06e99fdc-6d59-4532-8893-22f9a9ebda98"  // product
-const query = "candle"
+// const query = "candle"
 // const newQuery = `%${query}%`
 async function listData() {
     const leatherCategory = "21dff6d8-3a79-4882-b8ef-78412b7ba946"
