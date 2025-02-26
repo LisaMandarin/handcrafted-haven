@@ -10,7 +10,7 @@ async function listLatestArtisans() {
             a.image_url, 
             a.created_at,
             COALESCE(json_agg(
-                jsonb_build_object('id', c.id, 'name', c.category_name)
+                jsonb_build_object('id', c.id, 'category_name', c.category_name)
             ) FILTER (WHERE c.id IS NOT NULL), '[]') AS categories
         FROM artisans a
         LEFT JOIN artisan_categories ac ON ac.artisan_id = a.id

@@ -1,26 +1,26 @@
 import Image from "next/image";
 import dayjs from "dayjs";
 
-type ArtisanCard = {
+export type ArtisanCardType = {
   id: string;
   first_name: string;
   last_name: string;
   address: string;
   image_url: string;
   created_at: string;
-  categories?: Category[];
+  categories?: CategoryType[];
 };
 
-type Category = {
+export type CategoryType = {
   id: string;
-  name: string;
+  category_name: string;
 };
 
-function CategoryTag({ category }: { category: Category }) {
-  return <div className="bg-custom-brown-1 text-custom-yellow-1 px-2 rounded-xl w-fit">{category.name}</div>;
+function CategoryTag({ category }: { category: CategoryType }) {
+  return <div className="bg-custom-brown-1 text-custom-yellow-1 px-2 rounded-xl w-fit">{category.category_name}</div>;
 }
 
-export default function ArtisanCard({ artisan }: { artisan: ArtisanCard }) {
+export default function ArtisanCard({ artisan }: { artisan: ArtisanCardType }) {
   return (
     <div className="max-w-[250px] border-8 border-white bg-white">
       <div>
