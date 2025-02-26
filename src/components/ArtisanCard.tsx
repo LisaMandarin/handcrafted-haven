@@ -1,40 +1,48 @@
 import Image from "next/image";
-import Link from "next/link";
+import dayjs from "dayjs";
 
-type ArtisanProps = {
+type ArtisanCard = {
   id: string;
-  image_url: string;
   first_name: string;
   last_name: string;
-  introduction: string;
+  address: string;
+  image_url: string;
+  created_at: string;
+  categories: Category[];
 };
-export default function ArtisanCard({
-  id,
-  image_url,
-  first_name,
-  last_name,
-  introduction,
-}: ArtisanProps) {
+
+type Category = {
+  id: string;
+  name: string;
+};
+
+function CategoryTag({ category }: { category: Category }) {
+  return <div className="bg-custom-brown-1 text-custom-yellow-1 px-2 rounded-xl w-fit">{category.name}</div>;
+}
+
+export default function ArtisanCard({ artisan }: { artisan: ArtisanCard }) {
   return (
-    <div className="flex flex-col sm:flex-row items-center sm:items-stretch sm:gap-4 lg:gap-8">
-      <div className="w-[300px] h-[400px] flex-shrink-0">
+    <div className="max-w-[250px] border-8 border-white bg-white">
+      <div>
         <Image
-          src={image_url}
-          alt={`Image of ${first_name} ${last_name}`}
+          src={artisan.image_url}
+          alt={`${artisan.first_name} ${artisan.last_name}`}
           width={300}
           height={400}
-          className="rounded-xl mx-auto"
+          className="rounded-t-2xl"
         />
       </div>
-      <section className="sm:flex sm:flex-col">
-        <h3 className="text-xl sm:text-2xl underline my-2">
-          {first_name} {last_name}
-        </h3>
-        <p className="line-clamp-4 sm:line-clamp-6 indent-12 sm:text-lg lg:text-xl lg:leading-10">{introduction}</p>
-        <div className="text-right font-bold sm:text-lg">
-          <Link href={`/artisans/${id}`}>more</Link>
-        </div>
-      </section>
+      <div className="font-bold text-xl">
+        {artisan.first_name} {artisan.last_name}
+        <span className="font-normal text-xs">{`(${artisan.address.split(",").pop()?.trim()})`}</span>
+      </div>
+      <div>Joined on {dayjs(artisan.created_at).format("YYYY-MM-DD")}</div>
+      <div className="flex flex-row flex-wrap gap-2 text-xs">
+        {artisan.categories &&
+          artisan.categories.map((category) => (
+            <CategoryTag key={category.id} category={category} />
+          ))}
+      </div>
     </div>
   );
 }

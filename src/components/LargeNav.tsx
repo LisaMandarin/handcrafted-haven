@@ -32,7 +32,7 @@ export default function LargeNav({session, setSession}: {session: Session, setSe
     },
     {
       key: "2",
-      label: <Link href="/artisans?query=skills">by skills</Link>,
+      label: <Link href="/artisans?query=skill">by skills</Link>,
     },
     {
       key: "3",
