@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
-import ArtisanCard from "@/components/ArtisanCard";
+import ArtisanStory from "@/components/ArtisanStory";
 import Link from "next/link";
 
 async function fetchLatest() {
@@ -140,7 +140,7 @@ export default async function Home() {
           Meet the Artisan
         </h2>
         {randomArtisan && (
-          <ArtisanCard
+          <ArtisanStory
             key={randomArtisan.id}
             id={randomArtisan.id}
             image_url={randomArtisan.image_url}

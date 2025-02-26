@@ -37,7 +37,7 @@ export async function GET(
       { status: 200 }
     );
   } catch (error) {
-    NextResponse.json(
+    return NextResponse.json(
       {
         message: "Failed to list reviews by product ID",
         error: error instanceof Error ? error.message : error,

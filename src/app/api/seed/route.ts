@@ -1,6 +1,6 @@
 import { db, VercelPoolClient } from "@vercel/postgres";
 import bcrypt from "bcryptjs";
-import { categories, users, artisans, products, reviews  } from "../../../../data/placeholder";
+import { categories, users, artisans, products, reviews, artisan_categories  } from "../../../../data/placeholder";
 
 async function seedCategories(client: VercelPoolClient) {
   try {
@@ -105,6 +105,21 @@ async function seedReviews(client: VercelPoolClient) {
   }
 }
 
+async function seedArtisanCategories(client: VercelPoolClient) {
+  try {
+    await client.sql`BEGIN`;
+    await Promise.all(artisan_categories.map((ac) => client.sql`
+      INSERT INTO artisan_categories (artisan_id, category_id)
+      VALUES (${ac.artisan_id}, ${ac.category_id})
+    `))
+    await client.sql`COMMIT`;
+    return {success: true}
+  } catch (error) {
+    await client.sql`ROLLBACK`
+    return {success: false, error}
+  }
+}
+
 export async function GET() {
   const client = await db.connect();
   try {
@@ -114,6 +129,7 @@ export async function GET() {
       seedArtisans(client),
       seedProducts(client),
       seedReviews(client),
+      seedArtisanCategories(client)
     ]);
 
     const errors = results.filter((result) => !result.success);

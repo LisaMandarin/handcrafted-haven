@@ -28,15 +28,15 @@ export default function LargeNav({session, setSession}: {session: Session, setSe
   const artisansItems: MenuProps["items"] = [
     {
       key: "1",
-      label: <Link href="#">by location</Link>,
+      label: <Link href="/artisans?query=location">by location</Link>,
     },
     {
       key: "2",
-      label: <Link href="#">by skills</Link>,
+      label: <Link href="/artisans?query=skills">by skills</Link>,
     },
     {
       key: "3",
-      label: <Link href="#">by latest</Link>,
+      label: <Link href="/artisans?query=latest">by latest</Link>,
     },
   ];
 

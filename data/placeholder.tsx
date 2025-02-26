@@ -132,6 +132,7 @@ const users = [
 
 const artisans = [
   {
+    //0
     id: "410544b2-4001-4271-9855-fec4b6a6442a", //0
     first_name: "Alex",
     last_name: "Johnson",
@@ -143,6 +144,7 @@ const artisans = [
     created_at: "2025-01-01 12:00:00.000Z", // Later than user's created_at
   },
   {
+    //1
     id: "5123bcde-1234-5678-9abc-def012345678", //1
     first_name: "Sophia",
     last_name: "Williams",
@@ -154,6 +156,7 @@ const artisans = [
     created_at: "2025-01-02 08:30:00.000Z",
   },
   {
+    //2
     id: "8a126989-a1af-4dc9-9ae6-cb66a10b4625", //2
     first_name: "Michael",
     last_name: "Lee",
@@ -165,6 +168,7 @@ const artisans = [
     created_at: "2025-01-03 10:15:00.000Z",
   },
   {
+    //3
     id: "8bad634a-a4a0-4411-8517-e5519d816193", //3
     first_name: "Emma",
     last_name: "Carter",
@@ -176,6 +180,7 @@ const artisans = [
     created_at: "2025-01-30 15:00:00.000Z",
   },
   {
+    //4
     id: "c297ea25-f7bf-4c75-827a-745a3675e849", //4
     first_name: "Pierre",
     last_name: "Dupont",
@@ -186,6 +191,42 @@ const artisans = [
     user_id: users[4].id,
     created_at: "2024-11-25 18:00:00.000Z",
   },
+];
+
+const artisan_categories = [
+  // Alex Johnson's categories
+  { artisan_id: artisans[0].id, category_id: categories[2].id },
+  { artisan_id: artisans[0].id, category_id: categories[0].id },
+  { artisan_id: artisans[0].id, category_id: categories[4].id },
+  { artisan_id: artisans[0].id, category_id: categories[1].id },
+  { artisan_id: artisans[0].id, category_id: categories[6].id },
+
+  // Sophia Williams' categories
+  { artisan_id: artisans[1].id, category_id: categories[9].id },
+  { artisan_id: artisans[1].id, category_id: categories[4].id },
+  { artisan_id: artisans[1].id, category_id: categories[5].id },
+  { artisan_id: artisans[1].id, category_id: categories[10].id },
+  { artisan_id: artisans[1].id, category_id: categories[1].id },
+
+  // Michael Lee's categories
+  { artisan_id: artisans[2].id, category_id: categories[3].id },
+  { artisan_id: artisans[2].id, category_id: categories[2].id },
+  { artisan_id: artisans[2].id, category_id: categories[5].id },
+  { artisan_id: artisans[2].id, category_id: categories[10].id },
+  { artisan_id: artisans[2].id, category_id: categories[9].id },
+
+  // Emma Carter's categories
+  { artisan_id: artisans[3].id, category_id: categories[3].id },
+  { artisan_id: artisans[3].id, category_id: categories[6].id },
+  { artisan_id: artisans[3].id, category_id: categories[0].id },
+  { artisan_id: artisans[3].id, category_id: categories[8].id },
+
+  // Pierre Dupont's categories
+  { artisan_id: artisans[4].id, category_id: categories[3].id },
+  { artisan_id: artisans[4].id, category_id: categories[2].id },
+  { artisan_id: artisans[4].id, category_id: categories[4].id },
+  { artisan_id: artisans[4].id, category_id: categories[7].id },
+  { artisan_id: artisans[4].id, category_id: categories[1].id },
 ];
 
 const products = [
@@ -701,4 +742,4 @@ const reviews = [
   },
 ];
 
-export { categories, users, artisans, products, reviews}
+export { categories, users, artisans, artisan_categories, products, reviews}

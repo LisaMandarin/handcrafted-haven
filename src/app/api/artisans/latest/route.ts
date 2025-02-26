@@ -1,10 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
-// const id = "06e99fdc-6d59-4532-8893-22f9a9ebda98"  // product
-const query = "candle"
-// const newQuery = `%${query}%`
-async function listData() {
-    const result = await sql`
+async function listLatestArtisans() {
+  const { rows } = await sql`
         SELECT 
             a.id, 
             a.first_name, 
@@ -20,16 +17,30 @@ async function listData() {
         LEFT JOIN categories c ON ac.category_id = c.id
         GROUP BY a.id 
         ORDER BY a.created_at DESC
-    `
-    return result.rows
+    `;
+
+  return rows || [];
 }
 
 export async function GET() {
     try {
-        const data = await listData();
-        return NextResponse.json({data}, {status: 200})
-        
+        const result = await listLatestArtisans()
+
+        if (result.length === 0) {
+            return NextResponse.json({
+                message: "No latest artisans found",
+                data: []
+            }, {status: 200})
+        }
+
+        return NextResponse.json({
+            message: "List latest artisans successfully",
+            data: result
+        }, {status: 200})
     } catch (error) {
-        return NextResponse.json({ error}, {status: 500})
+        console.error("Error while listing latest artisans: ", error)
+        return NextResponse.json({
+            message: `Server error: ${error}`
+        }, {status: 500})
     }
 }
