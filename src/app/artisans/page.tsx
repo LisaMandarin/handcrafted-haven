@@ -88,7 +88,7 @@ export default async function ArtisansPage({
         <div className="fixed bottom-4 right-4 text-custom-dark-brown">
           <Link href="#category-nav">[Back to Top]</Link>
         </div>
-        {categories && <CategoriesNav categories={categories} />}
+        {categories && skillArtisans && <CategoriesNav categories={categories} />}
         {categories &&
           skillArtisans &&
           categories.map((category: CategoryType) => (
