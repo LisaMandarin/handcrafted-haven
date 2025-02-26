@@ -8,7 +8,7 @@ type ArtisanCard = {
   address: string;
   image_url: string;
   created_at: string;
-  categories: Category[];
+  categories?: Category[];
 };
 
 type Category = {

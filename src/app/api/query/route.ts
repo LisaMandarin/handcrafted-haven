@@ -4,22 +4,18 @@ import { NextResponse } from "next/server";
 const query = "candle"
 // const newQuery = `%${query}%`
 async function listData() {
+    const leatherCategory = "21dff6d8-3a79-4882-b8ef-78412b7ba946"
     const result = await sql`
-        SELECT 
-            a.id, 
-            a.first_name, 
-            a.last_name, 
-            a.address, 
-            a.image_url, 
-            a.created_at,
-            COALESCE(json_agg(
-                jsonb_build_object('id', c.id, 'name', c.category_name)
-            ) FILTER (WHERE c.id IS NOT NULL), '[]') AS categories
+        SELECT
+            a.id,
+            a.first_name,
+            a.last_name,
+            a.address,
+            a.image_url,
+            a.created_at
         FROM artisans a
-        LEFT JOIN artisan_categories ac ON ac.artisan_id = a.id
-        LEFT JOIN categories c ON ac.category_id = c.id
-        GROUP BY a.id 
-        ORDER BY a.created_at DESC
+        JOIN artisan_categories ac ON a.id = ac.artisan_id
+        WHERE ac.category_id = ${leatherCategory}
     `
     return result.rows
 }
