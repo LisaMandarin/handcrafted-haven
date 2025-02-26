@@ -1,5 +1,6 @@
 import ArtisanCard from "@/components/ArtisanCard";
 import { ArtisanCardType } from "@/components/ArtisanCard";
+import { CategoryType } from "@/types/data";
 
 async function fetchArtisans(query: string) {
   try {
@@ -76,21 +77,23 @@ export default async function ArtisansPage({
             <ArtisanCard key={artisan.id} artisan={artisan} />
           ))}
       </div>
-      <div className="outline">
+      <div className="flex flex-col items-center md:items-start mb-2">
         {categories &&
           skillArtisans &&
           categories.map(
-            (category: {
-              id: string;
-              category_name: string;
-              category_url: string;
-            }) => (
+            (category: CategoryType) => (
               <div key={category.id}>
-                <h2>{category.category_name}</h2>
-                {skillArtisans[category.id] &&
-                  skillArtisans[category.id].map((artisan: ArtisanCardType) => (
-                    <ArtisanCard key={artisan.id} artisan={artisan} />
-                  ))}
+                <h2 className="font-semibold text-xl mt-8 mb-2">
+                  {category.category_name}
+                </h2>
+                <div className="flex flex-col md:flex-row gap-4">
+                  {skillArtisans[category.id] &&
+                    skillArtisans[category.id].map(
+                      (artisan: ArtisanCardType) => (
+                        <ArtisanCard key={artisan.id} artisan={artisan} />
+                      )
+                    )}
+                </div>
               </div>
             )
           )}

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import dayjs from "dayjs";
+import { CategoryType } from "@/types/data";
 
 export type ArtisanCardType = {
   id: string;
@@ -9,11 +10,6 @@ export type ArtisanCardType = {
   image_url: string;
   created_at: string;
   categories?: CategoryType[];
-};
-
-export type CategoryType = {
-  id: string;
-  category_name: string;
 };
 
 function CategoryTag({ category }: { category: CategoryType }) {

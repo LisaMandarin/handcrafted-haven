@@ -9,11 +9,7 @@ import { Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import SearchBar from "./SearchBar";
 import { useRouter } from "next/navigation";
-
-type Category = {
-  id: string;
-  category_name: string;
-};
+import { CategoryType } from "@/types/data";
 
 type Session = {
   user: {
@@ -23,7 +19,7 @@ type Session = {
 } | null;
 
 export default function LargeNav({session, setSession}: {session: Session, setSession: (session: Session | null) => void}) {
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<CategoryType[]>([]);
   const router = useRouter();
   const artisansItems: MenuProps["items"] = [
     {
