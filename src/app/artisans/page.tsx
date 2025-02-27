@@ -91,7 +91,7 @@ export default async function ArtisansPage({
       </div>
 
       {/* artisans by skills */}
-      <div className="relative flex flex-col items-center md:items-start mb-2">
+      <div className="relative flex flex-col items-center mb-2">
         <div className="fixed bottom-4 right-4 text-custom-dark-brown">
           <Link href="#category-nav">[Back to Top]</Link>
         </div>
@@ -120,7 +120,7 @@ export default async function ArtisansPage({
       </div>
 
       {/* artisans by locations */}
-      <div className="flex flex-col items-center md:items-start mb-2">
+      <div className="flex flex-col items-center mb-2">
         {countries && <CountriesNav countries={countries} />}
           {countries &&
             countries.map((country: string) => (
