@@ -21,7 +21,7 @@ export default async function ArtisanIdPage({
   const { id } = await params;
 
   const artisan = await fetchArtisanById(id);
-  console.log('artisan: ', artisan);
+  
   return (
     <div>
       {artisan && (

@@ -1,25 +1,8 @@
 import Image from "next/image";
 import dayjs from "dayjs";
-import { CategoryType } from "@/types/data";
 import Link from "next/link";
-
-export type ArtisanCardType = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  address: string;
-  image_url: string;
-  created_at: string;
-  categories?: CategoryType[];
-};
-
-function CategoryTag({ category }: { category: CategoryType }) {
-  return (
-    <div className="bg-custom-brown-1 text-custom-yellow-1 px-2 rounded-xl w-fit">
-      {category.category_name}
-    </div>
-  );
-}
+import { CategoryTag } from "./CategoryTag";
+import { ArtisanCardType } from "@/types/data";
 
 export default function ArtisanCard({ artisan }: { artisan: ArtisanCardType }) {
   return (

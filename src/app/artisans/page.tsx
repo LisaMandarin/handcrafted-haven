@@ -1,5 +1,5 @@
 import ArtisanCard from "@/components/ArtisanCard";
-import { ArtisanCardType } from "@/components/ArtisanCard";
+import { ArtisanCardType } from "@/types/data";
 import { CategoryType } from "@/types/data";
 import CategoriesNav from "@/components/CategoriesNav";
 import Link from "next/link";
