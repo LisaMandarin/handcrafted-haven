@@ -4,24 +4,26 @@ import { NextResponse } from "next/server";
 // const query = "candle"
 // const newQuery = `%${query}%`
 // const leatherCategory = "21dff6d8-3a79-4882-b8ef-78412b7ba946"
-const country = "Australia"
+const artisanId = "c297ea25-f7bf-4c75-827a-745a3675e849"
+// const country = "Australia"
 async function listData() {
     const result = await sql`
         SELECT 
             a.id, 
             a.first_name, 
             a.last_name, 
-            a.address, 
-            a.image_url, 
+            a.address,
+            a.image_url,
+            a.introduction,
             a.created_at,
             COALESCE(json_agg(
-                jsonb_build_object('id', c.id, 'category_name', c.category_name)
+                json_build_object('id', c.id, 'category_name', c.category_name)
             ) FILTER (WHERE c.id IS NOT NULL), '[]') AS categories
         FROM artisans a
-        LEFT JOIN artisan_categories ac ON ac.artisan_id = a.id
+        LEFT JOIN artisan_categories ac ON a.id = ac.artisan_id
         LEFT JOIN categories c ON ac.category_id = c.id
-        WHERE address ILIKE ${'%' + country}
-        GROUP BY a.id 
+        WHERE a.id = ${artisanId}
+        GROUP BY a.id
     `
     return result.rows
 }

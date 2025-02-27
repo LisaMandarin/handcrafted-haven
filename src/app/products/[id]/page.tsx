@@ -1,5 +1,6 @@
 import ProductDetail from "@/components/ProductDetail";
 import ReviewListing from "@/components/ReviewListing";
+import { ParamsType } from "@/types/data";
 
 async function fetchProduct(id: string) {
   const res = await fetch(
@@ -39,7 +40,7 @@ async function listReviewsByProductId(id: string): Promise<ReviewsProps[]> {
 export default async function ProductIdPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<ParamsType>;
 }) {
   const { id } = await params;
   const [product, reviews] = await Promise.all([

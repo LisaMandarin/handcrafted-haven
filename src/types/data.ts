@@ -4,3 +4,6 @@ export type CategoryType = {
     category_url?: string;
   };
 
+export type ParamsType = {
+    id: string;
+  };
