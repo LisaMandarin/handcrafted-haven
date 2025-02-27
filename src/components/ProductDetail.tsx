@@ -2,20 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumb } from "antd";
 import dayjs from "dayjs";
+import { ProductDetailType } from "@/types/data";
 
-type ProductDetailProps = {
-  product_name: string;
-  image_url: string;
-  category_name: string;
-  category_id: string;
-  description: string;
-  quantity: number;
-  created_at: string;
-  price: number;
-  first_name: string;
-  last_name: string;
-  artisan_id: string;
-}
 
 export default function ProductDetail({
   product_name,
@@ -29,7 +17,7 @@ export default function ProductDetail({
   first_name,
   last_name,
   artisan_id
-}: ProductDetailProps) {
+}: ProductDetailType) {
   const breadcrumbItems = [
     { title: (
       <Link href='/'>
