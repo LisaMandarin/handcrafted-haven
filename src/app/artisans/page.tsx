@@ -1,13 +1,12 @@
-import ArtisanCard from "@/components/ArtisanCard";
-import { ArtisanCardType } from "@/types/data";
-import { CategoryType } from "@/types/data";
-import CategoriesNav from "@/components/CategoriesNav";
 import Link from "next/link";
-import CountriesNav from "@/components/CountriesNav";
-import { GrMap } from "react-icons/gr";
 import { AiOutlineGold } from "react-icons/ai";
 import { MdOutlineDateRange } from "react-icons/md";
-import { Breadcrumb } from "antd";
+import { GrMap } from "react-icons/gr";
+import { CategoryType, SearchParamsType, ArtisanCardType } from "@/types/data";
+import ArtisanCard from "@/components/ArtisanCard";
+import CategoriesNav from "@/components/CategoriesNav";
+import CountriesNav from "@/components/CountriesNav";
+import Title from "@/components/Title";
 
 async function fetchArtisans(query: string) {
   try {
@@ -56,7 +55,7 @@ async function listCategories() {
 export default async function ArtisansPage({
   searchParams,
 }: {
-  searchParams: Promise<{ query: string }>;
+  searchParams: Promise<SearchParamsType>;
 }) {
   const { query } = (await searchParams) || "";
   const categories = await listCategories();
@@ -101,20 +100,23 @@ export default async function ArtisansPage({
         </Link>
       ),
     },
-    query ? {
-      title: showQuery(query),
-    } : {},
+    query
+      ? {
+          title: showQuery(query),
+        }
+      : {},
   ];
 
   const countries = locationArtisans && Object.keys(locationArtisans);
   return (
     <>
-      <Breadcrumb items={breadcrumbItems} />
-      {/* title */}
-      <h1 className="relative font-bold text-2xl mb-4">
-        Here are the artisans {description}
-        <div className="absolute bottom-2 -z-10 bg-custom-yellow-2 w-full h-1"></div>
-      </h1>
+      {/* header */}
+      <Title
+        name="Artisans"
+        description={description}
+        breadcrumbItems={breadcrumbItems}
+      />
+
       {!query && (
         <div className="flex flex-col lg:flex-row lg:justify-center gap-8 pt-8">
           <div className="mb-4 flex flex-row gap-2 justify-center items-end h-fit">

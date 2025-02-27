@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export type CategoryType = {
     id: string;
     category_name: string;
@@ -42,3 +44,20 @@ export type ProductDetailType = {
   last_name: string;
   artisan_id: string;
 }
+
+export type TitleType = {
+  name: string;
+  description?: string;
+  breadcrumbItems: BreadcrumbItemType[];
+};
+
+export type BreadcrumbItemType =
+| {
+    title: string;
+  }
+| { title: JSX.Element }
+| { title: undefined };
+
+export type SearchParamsType = {
+  query: string;
+};

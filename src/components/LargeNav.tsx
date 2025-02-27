@@ -39,15 +39,15 @@ export default function LargeNav({session, setSession}: {session: Session, setSe
   const productsItems: MenuProps["items"] = [
     {
       key: "1",
-      label: <Link href="#">by popularity</Link>,
+      label: <Link href="/products?query=popularity">by popularity</Link>,
     },
     {
       key: "2",
-      label: <Link href="#">by rate</Link>,
+      label: <Link href="/products?query=rate">by rate</Link>,
     },
     {
       key: "3",
-      label: <Link href="#">by latest</Link>,
+      label: <Link href="/products?query=latest">by latest</Link>,
     },
   ];
 

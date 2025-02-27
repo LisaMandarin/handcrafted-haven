@@ -9,20 +9,21 @@ import Link from "next/link";
 export function SideMenu({
   isOpen,
   onClose,
-  session
+  session,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  session: {user: {
-    id: string;
-    email: string;
-  } } | null
+  session: {
+    user: {
+      id: string;
+      email: string;
+    };
+  } | null;
 }) {
-
-    // close the menu while clicking the link
-    const handleClick = () => {
-        onClose()
-    }
+  // close the menu while clicking the link
+  const handleClick = () => {
+    onClose();
+  };
   return (
     <Drawer
       placement="right"
@@ -40,41 +41,59 @@ export function SideMenu({
         </h1>
         <ul className="flex-grow flex flex-col justify-evenly">
           <li>
-            <Link href="/artisans" className="side-menu-link" onClick={handleClick}>
+            <Link
+              href="/artisans"
+              className="side-menu-link"
+              onClick={handleClick}
+            >
               <IoPeopleSharp className="inline mr-4" />
               Meet Artisans
             </Link>
           </li>
           <li>
-            <Link href="/products" className="side-menu-link"  onClick={handleClick}>
+            <Link
+              href="/products"
+              className="side-menu-link"
+              onClick={handleClick}
+            >
               <FaGifts className="inline mr-4" />
-              See Latest Products
+              See Products
             </Link>
           </li>
           <li>
-            <Link href="/categories" className="side-menu-link" onClick={handleClick}>
+            <Link
+              href="/categories"
+              className="side-menu-link"
+              onClick={handleClick}
+            >
               <AiFillProduct className="inline mr-4" />
               View Categories
             </Link>
           </li>
           <div className="flex flex-col items-center gap-8">
             {session?.user ? (
+              <p>Sign Out</p>
+            ) : (
               <>
                 <p>
-                  <Link href="/login" className="side-menu-link" onClick={handleClick}>
+                  <Link
+                    href="/login"
+                    className="side-menu-link"
+                    onClick={handleClick}
+                  >
                     Log In
                   </Link>
                 </p>
                 <p>
-                  <Link href="/signup" className="side-menu-link" onClick={handleClick}>
+                  <Link
+                    href="/signup"
+                    className="side-menu-link"
+                    onClick={handleClick}
+                  >
                     Sign Up
                   </Link>
                 </p>
               </>
-            ): (
-              <p>
-                Sign Out
-              </p>
             )}
           </div>
         </ul>
