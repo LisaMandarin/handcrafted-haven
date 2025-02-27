@@ -3,3 +3,4 @@ export type CategoryType = {
     category_name: string;
     category_url?: string;
   };
+

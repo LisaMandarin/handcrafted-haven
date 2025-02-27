@@ -3,6 +3,7 @@ import { ArtisanCardType } from "@/components/ArtisanCard";
 import { CategoryType } from "@/types/data";
 import CategoriesNav from "@/components/CategoriesNav";
 import Link from "next/link";
+import CountriesNav from "@/components/CountriesNav";
 
 async function fetchArtisans(query: string) {
   try {
@@ -15,12 +16,15 @@ async function fetchArtisans(query: string) {
       response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/artisans/${query}`
       );
+    } else if (query === "location") {
+      response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/artisans/${query}`
+      );
     }
-
     if (!response || !response.ok) {
       return;
     }
-
+  
     const { data } = await response.json();
     return data;
   } catch (error) {
@@ -56,6 +60,7 @@ export default async function ArtisansPage({
   let description;
   let latestArtisans;
   let skillArtisans;
+  let locationArtisans: { [key: string]: ArtisanCardType[] } | undefined;
   if (query === "latest") {
     description = "by the date they joined Handcrafted Haven";
     latestArtisans = await fetchArtisans(query);
@@ -64,10 +69,12 @@ export default async function ArtisansPage({
     skillArtisans = await fetchArtisans(query);
   } else if (query === "location") {
     description = "by their locations";
+    locationArtisans = await fetchArtisans(query);
   } else {
     description = "";
   }
 
+  const countries = locationArtisans && Object.keys(locationArtisans);
   return (
     <>
       {/* title */}
@@ -110,6 +117,30 @@ export default async function ArtisansPage({
               </div>
             </div>
           ))}
+      </div>
+
+      {/* artisans by locations */}
+      <div className="flex flex-col items-center md:items-start mb-2">
+        {countries && <CountriesNav countries={countries} />}
+          {countries &&
+            countries.map((country: string) => (
+              <div key={country}>
+                <div className="flex flex-row items-center mt-8 mb-2">
+                  <h2
+                    id={country}
+                    className="font-semibold text-xl"
+                  >
+                    {country}
+                  </h2>
+                  <span className="text-xs ml-2"><Link href="#top">[Back to Top]</Link></span>
+                </div>
+                <div className="flex flex-col md:flex-row gap-4">
+                  {locationArtisans && locationArtisans[country].map((artisan: ArtisanCardType) => (
+                    <ArtisanCard key={artisan.id} artisan={artisan} />
+                  ))}
+                </div>
+              </div>
+            ))}
       </div>
     </>
   );
