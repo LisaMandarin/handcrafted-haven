@@ -4,6 +4,10 @@ import { CategoryType } from "@/types/data";
 import CategoriesNav from "@/components/CategoriesNav";
 import Link from "next/link";
 import CountriesNav from "@/components/CountriesNav";
+import { GrMap } from "react-icons/gr";
+import { AiOutlineGold } from "react-icons/ai";
+import { MdOutlineDateRange } from "react-icons/md";
+import { Breadcrumb } from "antd";
 
 async function fetchArtisans(query: string) {
   try {
@@ -24,7 +28,7 @@ async function fetchArtisans(query: string) {
     if (!response || !response.ok) {
       return;
     }
-  
+
     const { data } = await response.json();
     return data;
   } catch (error) {
@@ -73,14 +77,81 @@ export default async function ArtisansPage({
   } else {
     description = "";
   }
+  const showQuery = (query: string) => {
+    if (query === "latest") {
+      return "latest artisans";
+    } else if (query === "skill") {
+      return "artisans by skills";
+    } else if (query === "location") {
+      return "artisans by locations";
+    }
+  };
+  const breadcrumbItems = [
+    {
+      title: (
+        <Link href={`/`} className="hover:underline">
+          Home
+        </Link>
+      ),
+    },
+    {
+      title: (
+        <Link href={`/artisans`} className="hover:underline">
+          Artisans
+        </Link>
+      ),
+    },
+    query ? {
+      title: showQuery(query),
+    } : {},
+  ];
 
   const countries = locationArtisans && Object.keys(locationArtisans);
   return (
     <>
+      <Breadcrumb items={breadcrumbItems} />
       {/* title */}
-      <div className="font-bold text-2xl mb-4">
+      <h1 className="relative font-bold text-2xl mb-4">
         Here are the artisans {description}
-      </div>
+        <div className="absolute bottom-2 -z-10 bg-custom-yellow-2 w-full h-1"></div>
+      </h1>
+      {!query && (
+        <div className="flex flex-col lg:flex-row lg:justify-center gap-8 pt-8">
+          <div className="mb-4 flex flex-row gap-2 justify-center items-end h-fit">
+            <div>
+              <GrMap className="text-4xl font-extrabold" />
+            </div>
+            <p>
+              <Link
+                href={`/artisans?query=location`}
+                className="hover:underline"
+              >
+                View Artisans by locations
+              </Link>
+            </p>
+          </div>
+          <div className="mb-4 flex flex-row gap-2 justify-center items-end h-fit">
+            <div>
+              <AiOutlineGold className="text-4xl font-extrabold" />
+            </div>
+            <p>
+              <Link href={`/artisans?query=skill`} className="hover:underline">
+                View Artisans by skills
+              </Link>
+            </p>
+          </div>
+          <div className="mb-4 flex flex-row gap-2 justify-center items-end h-fit">
+            <div>
+              <MdOutlineDateRange className="text-4xl font-extrabold" />
+            </div>
+            <p>
+              <Link href={`/artisans?query=latest`} className="hover:underline">
+                View Artisans by dates they joined
+              </Link>
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* latest artisans section */}
       <div className="mb-2 flex flex-col md:flex-row flex-wrap items-center md:items-start md:justify-center gap-4">
@@ -95,19 +166,20 @@ export default async function ArtisansPage({
         <div className="fixed bottom-4 right-4 text-custom-dark-brown">
           <Link href="#category-nav">[Back to Top]</Link>
         </div>
-        {categories && skillArtisans && <CategoriesNav categories={categories} />}
+        {categories && skillArtisans && (
+          <CategoriesNav categories={categories} />
+        )}
         {categories &&
           skillArtisans &&
           categories.map((category: CategoryType) => (
             <div key={category.id}>
               <div className="flex flex-row items-center mt-8 mb-2">
-                <h2
-                  id={category.id}
-                  className="font-semibold text-xl"
-                >
+                <h2 id={category.id} className="font-semibold text-xl">
                   {category.category_name}
                 </h2>
-                <span className="text-xs ml-2"><Link href="#top">[Back to Top]</Link></span>
+                <span className="text-xs ml-2">
+                  <Link href="#top">[Back to Top]</Link>
+                </span>
               </div>
               <div className="flex flex-col md:flex-row gap-4">
                 {skillArtisans[category.id] &&
@@ -122,25 +194,25 @@ export default async function ArtisansPage({
       {/* artisans by locations */}
       <div className="flex flex-col items-center mb-2">
         {countries && <CountriesNav countries={countries} />}
-          {countries &&
-            countries.map((country: string) => (
-              <div key={country}>
-                <div className="flex flex-row items-center mt-8 mb-2">
-                  <h2
-                    id={country}
-                    className="font-semibold text-xl"
-                  >
-                    {country}
-                  </h2>
-                  <span className="text-xs ml-2"><Link href="#top">[Back to Top]</Link></span>
-                </div>
-                <div className="flex flex-col md:flex-row gap-4">
-                  {locationArtisans && locationArtisans[country].map((artisan: ArtisanCardType) => (
+        {countries &&
+          countries.map((country: string) => (
+            <div key={country}>
+              <div className="flex flex-row items-center mt-8 mb-2">
+                <h2 id={country} className="font-semibold text-xl">
+                  {country}
+                </h2>
+                <span className="text-xs ml-2">
+                  <Link href="#top">[Back to Top]</Link>
+                </span>
+              </div>
+              <div className="flex flex-col md:flex-row gap-4">
+                {locationArtisans &&
+                  locationArtisans[country].map((artisan: ArtisanCardType) => (
                     <ArtisanCard key={artisan.id} artisan={artisan} />
                   ))}
-                </div>
               </div>
-            ))}
+            </div>
+          ))}
       </div>
     </>
   );

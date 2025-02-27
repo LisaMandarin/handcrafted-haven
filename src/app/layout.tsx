@@ -32,7 +32,7 @@ export default function RootLayout({
         
           <AntdRegistry>
             <TopNav />
-            <div className="px-6 lg:px-12 min-h-[calc(100vh-160px)]">
+            <div className="px-6 lg:px-12 min-h-[calc(100vh-148px)] md:min-h-[calc(100vh-200px)]">
               {children}
             </div>
             <Footer />
