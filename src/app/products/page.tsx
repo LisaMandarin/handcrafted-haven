@@ -35,7 +35,7 @@ export default async function ProductsPage({
 
   let description;
   if (query === "latest") {
-    description = "from the newest to the oldest";
+    description = "(latest 10)";
   } else if (query === "popularity") {
     description = "many people are buying";
   } else if (query === "rate") {
