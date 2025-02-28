@@ -3,20 +3,19 @@ import Link from "next/link";
 import { Rate } from "antd";
 import { ProductCardType } from "@/types/data";
 
-
 export default function ProductCard({
   id,
   product_name,
   image_url,
   price = 0,
   rate = 0,
-  review_count = 0
+  review_count = 0,
 }: ProductCardType) {
   return (
     <Link href={`/products/${id}`}>
       <div
         key={id}
-        className="flex flex-col w-[150px] h-[210px] sm:w-[300px] sm:h-[420px] lg:w-[200px] lg:h-[300px] rounded-xl shadow-lg bg-white"
+        className="flex flex-col w-[150px] h-[220px] sm:w-[300px] sm:h-[420px] lg:w-[200px] lg:h-[315px] rounded-xl shadow-lg bg-white"
       >
         <div>
           <Image
@@ -27,7 +26,9 @@ export default function ProductCard({
             className="rounded-t-xl"
           />
         </div>
-        <p className="px-1 sm:px-3 text-xs sm:text-lg line-clamp-2 flex-grow">{product_name}</p>
+        <p className="px-1 sm:px-3 text-xs sm:text-lg line-clamp-2 flex-grow">
+          {product_name}
+        </p>
         {price ? (
           <div className="px-1 text-sm sm:text-xl sm:mb-4 sm:mr-4 text-red-600 font-bold text-right">
             {price}
@@ -36,12 +37,17 @@ export default function ProductCard({
           <></>
         )}
         {rate ? (
-          <div className="text-center">
+          <div className="flex justify-center">
             <Rate
               allowHalf
               value={Number(rate)}
               disabled
-              className="text-sm sm:text-xl sm:mb-4"
+              style={{
+                paddingLeft: "0rem",
+                fontSize: "0.9rem",
+              }}
+
+              // className="text-sm sm:text-xl sm:mb-4"
             />
             <span className="text-xs ml-1 text-gray-400">({review_count})</span>
           </div>

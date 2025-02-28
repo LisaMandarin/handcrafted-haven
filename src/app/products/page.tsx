@@ -16,10 +16,7 @@ async function getProducts(query: string) {
     );
 
     if (!response.ok) {
-      console.error(
-        `Unable to fetch the products: `,
-        response.statusText
-      );
+      console.error(`Unable to fetch the products: `, response.statusText);
     }
     const { data } = await response.json();
     return data;
@@ -77,9 +74,9 @@ export default async function ProductsPage({
   ];
 
   const latestProducts = await getProducts(query);
-  // let popularProducts = [];
+  const popularProducts = await getProducts(query);
   // let highestRatedProducts = [];
-  
+
   return (
     <div>
       <Title
@@ -88,7 +85,7 @@ export default async function ProductsPage({
         breadcrumbItems={breadcrumbItems}
       />
 
-      {/* products page -- main section */}
+      {/* products page -- navigation section */}
       {!query && (
         <div className="flex flex-col lg:flex-row lg:justify-center gap-8 pt-8">
           {/* latest products */}
@@ -131,25 +128,40 @@ export default async function ProductsPage({
           </div>
         </div>
       )}
-  
-      {/* products page -- product cards */}
-      <div className="flex flex-row flex-wrap justify-center gap-4">
-      {query === "latest" &&
-        latestProducts?.length > 0 &&
-        latestProducts.map((product: ProductCardType) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            product_name={product.product_name}
-            image_url={product.image_url}
-            price={product.price}
-            rate={product.rate}
-            review_count={product.review_count}
-          />
-        ))}
 
+      {/* products page -- latest products */}
+      <div className="flex flex-row flex-wrap justify-center gap-4">
+        {query === "latest" &&
+          latestProducts?.length > 0 &&
+          latestProducts.map((product: ProductCardType) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              product_name={product.product_name}
+              image_url={product.image_url}
+              price={product.price}
+              rate={product.rate}
+              review_count={product.review_count}
+            />
+          ))}
       </div>
-      
+
+      {/* products page -- popular products */}
+      <div className="flex flex-row flex-wrap justify-center gap-4">
+        {query === "popularity" &&
+          popularProducts?.length > 0 &&
+          popularProducts.map((product: ProductCardType) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              product_name={product.product_name}
+              image_url={product.image_url}
+              price={product.price}
+              rate={product.rate}
+              review_count={product.review_count}
+            />
+          ))}
+      </div>
     </div>
   );
 }
