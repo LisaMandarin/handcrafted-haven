@@ -1,17 +1,40 @@
 import Link from "next/link";
 import Title from "@/components/Title";
-import { SearchParamsType } from "@/types/data";
+import { SearchParamsType, ProductCardType } from "@/types/data";
 import { TbChartBarPopular } from "react-icons/tb";
 import { GrLike } from "react-icons/gr";
 import { MdOutlineDateRange } from "react-icons/md";
+import ProductCard from "@/components/ProductCard";
+
+async function getProducts(query: string) {
+  try {
+    if (!query) {
+      return;
+    }
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${query}`
+    );
+
+    if (!response.ok) {
+      console.error(
+        `Unable to fetch the products: `,
+        response.statusText
+      );
+    }
+    const { data } = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+  }
+}
 
 export default async function ProductsPage({
   searchParams,
 }: {
   searchParams: Promise<SearchParamsType>;
 }) {
-  const {query} = await searchParams
-  console.log(query);
+  const { query } = await searchParams;
+
   let description;
   if (query === "latest") {
     description = "from the newest to the oldest";
@@ -52,17 +75,23 @@ export default async function ProductsPage({
         }
       : {},
   ];
+
+  const latestProducts = await getProducts(query);
+  // let popularProducts = [];
+  // let highestRatedProducts = [];
   
   return (
     <div>
       <Title
-        name="Products"
+        name="products"
         description={description}
         breadcrumbItems={breadcrumbItems}
       />
+
+      {/* products page -- main section */}
       {!query && (
         <div className="flex flex-col lg:flex-row lg:justify-center gap-8 pt-8">
-            {/* latest products */}
+          {/* latest products */}
           <div className="mb-4 flex flex-row gap-2 justify-center items-end h-fit">
             <div>
               <MdOutlineDateRange className="text-4xl font-extrabold" />
@@ -74,7 +103,7 @@ export default async function ProductsPage({
             </p>
           </div>
 
-            {/* popular products */}
+          {/* popular products */}
           <div className="mb-4 flex flex-row gap-2 justify-center items-end h-fit">
             <div>
               <TbChartBarPopular className="text-4xl font-extrabold" />
@@ -89,7 +118,7 @@ export default async function ProductsPage({
             </p>
           </div>
 
-            {/* top rated products */}
+          {/* top rated products */}
           <div className="mb-4 flex flex-row gap-2 justify-center items-end h-fit">
             <div>
               <GrLike className="text-4xl font-extrabold" />
@@ -102,6 +131,25 @@ export default async function ProductsPage({
           </div>
         </div>
       )}
+  
+      {/* products page -- product cards */}
+      <div className="flex flex-row flex-wrap justify-center gap-4">
+      {query === "latest" &&
+        latestProducts?.length > 0 &&
+        latestProducts.map((product: ProductCardType) => (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            product_name={product.product_name}
+            image_url={product.image_url}
+            price={product.price}
+            rate={product.rate}
+            review_count={product.review_count}
+          />
+        ))}
+
+      </div>
+      
     </div>
   );
 }

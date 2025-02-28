@@ -61,3 +61,12 @@ export type BreadcrumbItemType =
 export type SearchParamsType = {
   query: string;
 };
+
+export type ProductCardType = {
+  id: string;
+  product_name: string;
+  image_url: string;
+  price?: number;
+  rate?: number;
+  review_count?: number;
+};

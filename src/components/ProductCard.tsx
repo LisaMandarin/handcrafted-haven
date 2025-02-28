@@ -1,15 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Rate } from "antd";
+import { ProductCardType } from "@/types/data";
 
-type ProductCardProps = {
-  id: string;
-  product_name: string;
-  image_url: string;
-  price?: number;
-  rate?: number;
-  review_count?: number;
-};
 
 export default function ProductCard({
   id,
@@ -18,7 +11,7 @@ export default function ProductCard({
   price = 0,
   rate = 0,
   review_count = 0
-}: ProductCardProps) {
+}: ProductCardType) {
   return (
     <Link href={`/products/${id}`}>
       <div
