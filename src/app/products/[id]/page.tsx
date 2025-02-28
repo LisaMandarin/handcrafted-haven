@@ -4,7 +4,7 @@ import { ParamsType } from "@/types/data";
 
 async function fetchProduct(id: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/id/${id}`,
     {cache: "no-store"}
   );
 
