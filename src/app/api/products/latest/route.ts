@@ -8,6 +8,7 @@ async function fetchLatestProducts() {
         LEFT JOIN reviews r ON p.id = r.product_id
         GROUP BY p.id
         ORDER BY p.created_at DESC
+        LIMIT 10
     `
     return result.rows || []
 }

@@ -11,11 +11,12 @@ export default function ProductCard({
   rate = 0,
   review_count = 0,
 }: ProductCardType) {
+  
   return (
     <Link href={`/products/${id}`}>
       <div
         key={id}
-        className="flex flex-col w-[150px] h-[220px] sm:w-[300px] sm:h-[420px] lg:w-[200px] lg:h-[315px] rounded-xl shadow-lg bg-white"
+        className="relative flex flex-col w-[150px] h-[220px] sm:w-[300px] sm:h-[420px] lg:w-[200px] lg:h-[315px] rounded-xl shadow-lg bg-white"
       >
         <div>
           <Image
@@ -46,8 +47,6 @@ export default function ProductCard({
                 paddingLeft: "0rem",
                 fontSize: "0.9rem",
               }}
-
-              // className="text-sm sm:text-xl sm:mb-4"
             />
             <span className="text-xs ml-1 text-gray-400">({review_count})</span>
           </div>

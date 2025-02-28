@@ -5,6 +5,7 @@ import { TbChartBarPopular } from "react-icons/tb";
 import { GrLike } from "react-icons/gr";
 import { MdOutlineDateRange } from "react-icons/md";
 import ProductCard from "@/components/ProductCard";
+import Trophy from "@/components/Trophy";
 
 async function getProducts(query: string) {
   try {
@@ -75,7 +76,7 @@ export default async function ProductsPage({
 
   const latestProducts = await getProducts(query);
   const popularProducts = await getProducts(query);
-  // let highestRatedProducts = [];
+  const ratedProducts = await getProducts(query);
 
   return (
     <div>
@@ -150,9 +151,10 @@ export default async function ProductsPage({
       <div className="flex flex-row flex-wrap justify-center gap-4">
         {query === "popularity" &&
           popularProducts?.length > 0 &&
-          popularProducts.map((product: ProductCardType) => (
-            <ProductCard
-              key={product.id}
+          popularProducts.map((product: ProductCardType, index: number) => (
+            <div key={product.id} className="relative">
+              <Trophy index={index} />
+              <ProductCard
               id={product.id}
               product_name={product.product_name}
               image_url={product.image_url}
@@ -160,6 +162,29 @@ export default async function ProductsPage({
               rate={product.rate}
               review_count={product.review_count}
             />
+            </div>
+            
+            
+          ))}
+      </div>
+
+      {/* products page -- rated products */}
+      <div className="flex flex-row flex-wrap justify-center gap-4">
+        {query === "rate" && ratedProducts?.length > 0 &&
+          ratedProducts.map((product: ProductCardType, index: number) => (
+            <div key={product.id} className="relative">
+              <Trophy index={index} />
+              <ProductCard
+                id={product.id}
+                product_name={product.product_name}
+                price={product.price}
+                image_url={product.image_url}
+                rate={product.rate}
+                review_count={product.review_count}
+              />
+            </div>
+            
+            
           ))}
       </div>
     </div>
