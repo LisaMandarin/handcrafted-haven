@@ -7,8 +7,9 @@ async function fetchArtisanByUserId(id: string) {
   const result = await sql`
         SELECT * FROM artisans a
         WHERE a.user_id = ${id}
+        LIMIT 1
     `;
-  return result.rows || [];
+  return result.rows[0] || [];
 }
 
 export async function GET(
