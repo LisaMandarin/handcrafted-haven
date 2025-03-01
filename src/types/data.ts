@@ -78,3 +78,12 @@ export type ReviewsType = {
   comment: string;
   username: string;
 };
+
+export type SessionType = {
+  user: {
+    id: string;
+    email: string;
+  };
+} | null;
+
+export type SetSessionType = (session: SessionType | null) => void;

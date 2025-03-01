@@ -4,21 +4,24 @@ import { useEffect, useState } from "react";
 import { MenuProps } from "antd";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { racing } from "@/app/styles/fonts";
 import { Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import { RxAvatar } from "react-icons/rx";
 import SearchBar from "./SearchBar";
-import { useRouter } from "next/navigation";
-import { CategoryType } from "@/types/data";
+import { CategoryType, SessionType } from "@/types/data";
+import { handleLogout } from "@/utils/logout";
 
-type Session = {
-  user: {
-    id: string;
-    email: string;
-  };
-} | null;
 
-export default function LargeNav({session, setSession}: {session: Session, setSession: (session: Session | null) => void}) {
+
+export default function LargeNav({
+  session,
+  setSession,
+}: {
+  session: SessionType;
+  setSession: (session: SessionType | null) => void;
+}) {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const router = useRouter();
   const artisansItems: MenuProps["items"] = [
@@ -53,24 +56,14 @@ export default function LargeNav({session, setSession}: {session: Session, setSe
 
   const categoriesItems: MenuProps["items"] = categories.map((category) => ({
     key: category.id,
-    label: <Link href="#">{category.category_name}</Link>,
+    label: (
+      <Link
+        href={`${process.env.NEXT_PUBLIC_BASE_URL}/categories/${category.id}`}
+      >
+        {category.category_name}
+      </Link>
+    ),
   }));
-
-  const handleLogout = async () => {
-    try {
-      const response = await fetch("/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        setSession(null);
-        router.refresh();
-      }
-    } catch (error) {
-      console.error("Logout failed: ", error);
-    }
-  };
 
   useEffect(() => {
     async function fetchCategories() {
@@ -103,9 +96,15 @@ export default function LargeNav({session, setSession}: {session: Session, setSe
 
       {/* buttons section */}
       {session?.user ? (
-        <div className="col-span-2 col-start-5 flex justify-end items-center gap-2">
+        <div className="col-span-2 col-start-5 flex justify-end items-center gap-4">
+          <Link href="/dashboard">
+            <div className="flex items-center">
+              <RxAvatar className="text-4xl" />
+              <span className="text-xl">Dashboard</span>
+            </div>
+          </Link>
           <button
-            onClick={handleLogout}
+            onClick={() => handleLogout({setSession, router})}
             className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full"
           >
             Log Out

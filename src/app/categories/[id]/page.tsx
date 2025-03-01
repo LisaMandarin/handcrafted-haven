@@ -60,7 +60,6 @@ export default async function CategoryIDPage({
     fetchProductsByCategoryId(id),
   ]);
 
-  console.log('currentCategory: ', currentCategory)
   const breadcrumbItems = [
     { title: <Link href="/">Home</Link> },
     { title: <Link href="/categories">Categories</Link> },

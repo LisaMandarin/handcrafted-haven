@@ -4,26 +4,35 @@ import { racing } from "@/app/styles/fonts";
 import { IoPeopleSharp } from "react-icons/io5";
 import { FaGifts } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
+import { RxAvatar } from "react-icons/rx";
+import { SlLogout } from "react-icons/sl";
 import Link from "next/link";
+import { SessionType, SetSessionType } from "@/types/data";
+import { handleLogout } from "@/utils/logout";
+import { useRouter } from "next/navigation";
 
 export function SideMenu({
   isOpen,
   onClose,
   session,
+  setSession
 }: {
   isOpen: boolean;
   onClose: () => void;
-  session: {
-    user: {
-      id: string;
-      email: string;
-    };
-  } | null;
+  session: SessionType;
+  setSession: SetSessionType
 }) {
+  const router = useRouter()
+
   // close the menu while clicking the link
   const handleClick = () => {
     onClose();
   };
+
+  const handleSignOut = () => {
+    onClose()
+    handleLogout({setSession, router})
+  }
   return (
     <Drawer
       placement="right"
@@ -70,9 +79,21 @@ export function SideMenu({
               View Categories
             </Link>
           </li>
-          <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-col items-start gap-8">
             {session?.user ? (
-              <p>Sign Out</p>
+              <>
+                <Link href="/dashboard" className="side-menu-link" onClick={handleClick}>
+                  <div className="flex gap-4">
+                    <RxAvatar className="text-2xl" />
+                    Dashboard
+                  </div>
+                </Link>
+
+                <p className="flex gap-4" onClick={handleSignOut}>
+                  <SlLogout />
+                  Sign Out
+                </p>
+              </>
             ) : (
               <>
                 <p>

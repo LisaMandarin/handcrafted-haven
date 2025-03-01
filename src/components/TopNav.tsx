@@ -9,7 +9,7 @@ export default function TopNav() {
   return (
     <>
       <div className="md:hidden">
-        <SmallNav session={session} />
+        <SmallNav session={session} setSession={setSession} />
       </div>
       <div className="hidden md:block">
         <LargeNav session={session} setSession={setSession} />

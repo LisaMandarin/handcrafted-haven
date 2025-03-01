@@ -13,7 +13,6 @@ export default function Trophy({index} : {index: number}) {
     } else {
         src = ""
     }
-    console.log('src: ', src)
 
     return (
         src ? (
