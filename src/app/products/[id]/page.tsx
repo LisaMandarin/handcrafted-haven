@@ -1,6 +1,6 @@
 import ProductDetail from "@/components/ProductDetail";
 import ReviewListing from "@/components/ReviewListing";
-import { ParamsType } from "@/types/data";
+import { ParamsType, ReviewsType } from "@/types/data";
 
 async function fetchProduct(id: string) {
   const res = await fetch(
@@ -15,15 +15,9 @@ async function fetchProduct(id: string) {
   return data;
 }
 
-type ReviewsProps = {
-  id: string;
-  created_at: string;
-  rate: number;
-  comment: string;
-  username: string;
-};
 
-async function listReviewsByProductId(id: string): Promise<ReviewsProps[]> {
+
+async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews-product/${id}`,
     {cache: "no-store"}

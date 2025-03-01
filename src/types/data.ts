@@ -70,3 +70,11 @@ export type ProductCardType = {
   rate?: number;
   review_count?: number;
 };
+
+export type ReviewsType = {
+  id: string;
+  created_at: string;
+  rate: number;
+  comment: string;
+  username: string;
+};
