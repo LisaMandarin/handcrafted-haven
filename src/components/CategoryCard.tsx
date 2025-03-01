@@ -4,7 +4,7 @@ import { CategoryType } from "@/types/data";
 
 export default function CategoryCard({ category }: { category: CategoryType }) {
   return (
-    <div className="border-8 border-white bg-white w-[166px]">
+    <div className="border-8 border-white bg-white w-[166px] shadow-lg">
       <Link
         href={`/categories/${category.id}`}
       >
@@ -17,7 +17,7 @@ export default function CategoryCard({ category }: { category: CategoryType }) {
             alt={`image of ${category.category_name}`}
             width={300}
             height={400}
-            className="rounded-t-2xl"
+            className="rounded-t-xl"
           />
         </div>
         <div className="text-xl text-center overflow-hidden line-clamp-1">{category.category_name}</div>
