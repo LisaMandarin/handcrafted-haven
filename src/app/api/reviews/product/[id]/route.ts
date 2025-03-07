@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
+import { ParamsType } from "@/types/data";
 
 async function listReviewsByProductId(id: string) {
   const result = await sql`
@@ -12,7 +13,7 @@ async function listReviewsByProductId(id: string) {
 
 export async function GET(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<ParamsType> }
 ) {
   try {
     const { id } = await params;

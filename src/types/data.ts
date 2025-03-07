@@ -98,3 +98,12 @@ export type DashboardProductType = {
   product_name: string;
   quantity: number;
 };
+
+export type DashboardPurchaseType = {
+  id: string;
+  product_name: string;
+  image_url: string;
+  rate: number;
+  created_at: string;
+  comment: string;
+}

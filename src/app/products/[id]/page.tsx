@@ -19,7 +19,7 @@ async function fetchProduct(id: string) {
 
 async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews-product/${id}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/product/${id}`,
     {cache: "no-store"}
   );
 
