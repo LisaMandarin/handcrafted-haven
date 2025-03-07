@@ -57,10 +57,13 @@ export default async function PostsPage() {
 
   const artisan = await fetchArtisan(session?.user?.id);
   if (!artisan || artisan.length === 0) {
-    return <div className="text-center">You don&apos;t have any products.</div>;
+    return <div className="text-center">You haven&apos;t started your sales yet</div>;
   }
+
   const products = await fetchProducts(artisan.id);
-  
+  if (!products || products.length === 0) {
+    return <div className="text-center">You don&apos;t own any products</div>
+  }
 
   return (
     <>

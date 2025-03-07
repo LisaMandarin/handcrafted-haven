@@ -9,7 +9,7 @@ export default function ReviewButtons({id} : {id: string}) {
     }
 
     return (
-        <div className="space-x-4 min-w-28">
+        <div className="space-x-4 min-w-20">
             <Link href={`/reviews/edit/${id}`}><EditOutlined /></Link>
             <DeleteOutlined onClick={() => deleteReview(id)} />
         </div>

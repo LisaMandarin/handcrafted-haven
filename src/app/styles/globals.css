@@ -15,3 +15,8 @@
   color: #ffe6a7;
   text-decoration: underline;
 }
+
+.ant-rate.custom-stars {
+  font-size: 14px;
+  color: #99582a
+}
