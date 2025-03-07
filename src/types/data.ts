@@ -87,3 +87,14 @@ export type SessionType = {
 } | null;
 
 export type SetSessionType = (session: SessionType | null) => void;
+
+export type DashboardProductType = {
+  category_name: string;
+  created_at: string;
+  description: string;
+  id: string;
+  image_url: string;
+  price: number;
+  product_name: string;
+  quantity: number;
+};

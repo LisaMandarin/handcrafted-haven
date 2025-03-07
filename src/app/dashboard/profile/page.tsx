@@ -1,5 +1,5 @@
-export default function ProfilePage() {
+export default async function ProfilePage() {
     return (
-        <>Profile page</>
+        <>Profile Page</>
     )
 }

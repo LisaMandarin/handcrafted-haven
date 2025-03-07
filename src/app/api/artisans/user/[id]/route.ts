@@ -9,7 +9,7 @@ async function fetchArtisanByUserId(id: string) {
         WHERE a.user_id = ${id}
         LIMIT 1
     `;
-  return result.rows[0] || [];
+  return result.rows[0] || null;
 }
 
 export async function GET(
@@ -31,8 +31,8 @@ export async function GET(
     if (!result || result.length === 0) {
       return NextResponse.json({
         message: "Failed to fetch artisan",
-        data: [],
-      });
+        data: null,
+      }, {status: 404});
     }
 
     return NextResponse.json(
