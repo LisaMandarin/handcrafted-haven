@@ -3,8 +3,9 @@ import LoginButton from "@/components/LoginButton";
 import { DashboardPurchaseType } from "@/types/data";
 import dayjs from "dayjs";
 import { Rate } from "antd";
-
 import Image from "next/image";
+import ReviewButtons from "@/components/ReviewButtons";
+
 async function fetchReviews(id: string) {
   try {
     if (!id) {
@@ -37,7 +38,7 @@ export default async function Purchases() {
     );
   }
 
-  const headings = ["Product", "Purchase Date", "Review", "Review Date"];
+  const headings = ["Product", "Purchase Date", "Review", "Review Date", "Actions"];
   const reviews = await fetchReviews(session?.user?.id);
   if (reviews.length === 0) {
     return <>You don&apos;t have any purchases</>;
@@ -61,7 +62,7 @@ export default async function Purchases() {
             </thead>
             <tbody>
               {reviews.map((r: DashboardPurchaseType) => (
-                <tr key={r.id}>
+                <tr key={r.id} className="hover:shadow-lg">
                   <td className="pr-2 min-w-[150px] w-[150px]">
                     <div className="flex flex-col gap-2">
                       <div className="w-20 min-w-20">
@@ -81,6 +82,7 @@ export default async function Purchases() {
                     <div>{r.comment}</div>
                   </td>
                   <td className="px-2 min-w-28">{dayjs(r.created_at).format("YYYY-MM-DD")}</td>
+                  <td><ReviewButtons id={r.id}/></td>
                 </tr>
               ))}
             </tbody>

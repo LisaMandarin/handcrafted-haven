@@ -17,7 +17,7 @@ export default function PostTable({
     "Price",
     "Quantity",
     "Category",
-    "Action",
+    "Actions",
   ];
 
   const toggleMore = (id: string) => {
