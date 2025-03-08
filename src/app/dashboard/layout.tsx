@@ -1,6 +1,7 @@
 import React from "react";
 import DashboardNav from "@/components/DashboardNav";
-import { getSession } from "@/utils/session";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import LoginButton from "@/components/LoginButton";
 
 export default async function Layout({
@@ -8,10 +9,10 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
+  const session = await getServerSession(authOptions)
   return (
     <>
-      {session?.user ? (
+      {session ? (
         <div className="flex flex-col lg:flex-row lg:min-h-[calc(100vh-160px)] gap-4">
           <DashboardNav />
           <div className="flex-grow">{children}</div>

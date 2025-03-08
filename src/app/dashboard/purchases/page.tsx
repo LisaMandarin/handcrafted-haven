@@ -1,4 +1,5 @@
-import { getSession } from "@/utils/session";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import LoginButton from "@/components/LoginButton";
 import { DashboardPurchaseType } from "@/types/data";
 import dayjs from "dayjs";
@@ -29,7 +30,7 @@ async function fetchReviews(id: string) {
   }
 }
 export default async function Purchases() {
-  const session = await getSession();
+  const session = await getServerSession(authOptions)
   if (!session) {
     return (
       <div className="text-center">

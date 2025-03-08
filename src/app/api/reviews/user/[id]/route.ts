@@ -16,6 +16,7 @@ async function fetchReviewsByUserId(id: string) {
 export async function GET(req: Request, {params} : {params: Promise<ParamsType>}) {
     try {
         const {id} = await params
+        
         if (!id) {
             return NextResponse.json({
                 message: "ID is missing",
@@ -24,18 +25,18 @@ export async function GET(req: Request, {params} : {params: Promise<ParamsType>}
         }
 
         const result = await fetchReviewsByUserId(id)
-
+        
         if (result.length === 0) {
             return NextResponse.json({
                 message: `No reviews found by ID ${id}`,
                 data: []
-            }, {status: 404})
+            }, {status: 200})
         }
 
         return NextResponse.json({
             message: `Fetch reviews by ID ${id} successfully`,
             data: result
-        })
+        }, {status: 200})
 
     } catch (error) {
         return NextResponse.json({

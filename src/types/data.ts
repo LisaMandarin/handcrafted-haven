@@ -79,15 +79,6 @@ export type ReviewsType = {
   username: string;
 };
 
-export type SessionType = {
-  user: {
-    id: string;
-    email: string;
-  };
-} | null;
-
-export type SetSessionType = (session: SessionType | null) => void;
-
 export type DashboardProductType = {
   category_name: string;
   created_at: string;

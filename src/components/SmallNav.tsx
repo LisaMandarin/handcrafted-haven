@@ -6,9 +6,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
-import { SessionType, SetSessionType } from "@/types/data";
 
-export default function SmallNav({ session, setSession }: { session: SessionType; setSession: SetSessionType }) {
+export default function SmallNav() {
   const [isOpen, setOpen] = useState(false); // toggle side menu
   const onClose = () => setOpen(false);
 
@@ -21,7 +20,7 @@ export default function SmallNav({ session, setSession }: { session: SessionType
         </Link>
       </div>
       <SearchBar />
-      <SideMenu isOpen={isOpen} onClose={onClose} session={session} setSession={setSession} />
+      <SideMenu isOpen={isOpen} onClose={onClose} />
     </div>
   );
 }

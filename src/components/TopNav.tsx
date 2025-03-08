@@ -2,17 +2,16 @@
 
 import SmallNav from "./SmallNav";
 import LargeNav from "./LargeNav";
-import { useSession } from "@/hooks/useSession";
-export default function TopNav() {
-  const { session, setSession } = useSession();
 
+export default function TopNav() {
+  
   return (
     <>
       <div className="md:hidden">
-        <SmallNav session={session} setSession={setSession} />
+        <SmallNav />
       </div>
       <div className="hidden md:block">
-        <LargeNav session={session} setSession={setSession} />
+        <LargeNav />
       </div>
     </>
   );

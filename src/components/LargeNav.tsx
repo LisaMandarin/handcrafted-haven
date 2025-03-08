@@ -4,26 +4,21 @@ import { useEffect, useState } from "react";
 import { MenuProps } from "antd";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { racing } from "@/app/styles/fonts";
 import { Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { RxAvatar } from "react-icons/rx";
 import SearchBar from "./SearchBar";
-import { CategoryType, SessionType } from "@/types/data";
-import { handleLogout } from "@/utils/logout";
+import { CategoryType } from "@/types/data";
+import { useSession, signOut } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 
-
-
-export default function LargeNav({
-  session,
-  setSession,
-}: {
-  session: SessionType;
-  setSession: (session: SessionType | null) => void;
-}) {
+export default function LargeNav() {
+  const pathname = usePathname()
+  const router = useRouter()
+  const [currentUrl, setCurrentUrl] = useState('/')
+  const {data: session} = useSession();
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const router = useRouter();
   const artisansItems: MenuProps["items"] = [
     {
       key: "1",
@@ -65,6 +60,11 @@ export default function LargeNav({
     ),
   }));
 
+  const handleRedirect = () => {
+    const redirectedLink = `/login?callbackUrl=${encodeURIComponent(currentUrl)}`
+    router.push(redirectedLink)
+  }
+
   useEffect(() => {
     async function fetchCategories() {
       const response = await fetch(
@@ -77,6 +77,10 @@ export default function LargeNav({
     }
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    setCurrentUrl(pathname)
+  }, [pathname])
 
   return (
     <div className="px-6 py-3 grid grid-flow-row grid-cols-6 gap-1">
@@ -95,28 +99,25 @@ export default function LargeNav({
       </div>
 
       {/* buttons section */}
-      {session?.user ? (
+      {session ? (
         <div className="col-span-2 col-start-5 flex justify-end items-center gap-4">
-          <Link href="/dashboard">
-            <div className="flex items-center">
-              <RxAvatar className="text-4xl" />
-              <span className="text-xl">Dashboard</span>
-            </div>
-          </Link>
-          <button
-            onClick={() => handleLogout({setSession, router})}
-            className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full"
-          >
-            Log Out
-          </button>
-        </div>
-      ) : (
-        <div className="col-span-2 col-start-5 flex justify-end items-center gap-2">
-          <button className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full">
-            <Link href="/signup">Sign Up</Link>
-          </button>
-          <button className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full">
-            <Link href="/login">Log In</Link>
+        <Link href="/dashboard">
+          <div className="flex items-center">
+            <RxAvatar className="text-4xl" />
+            <span className="text-xl">Dashboard</span>
+          </div>
+        </Link>
+        <button
+          onClick={() => signOut()}
+          className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full"
+        >
+          Log Out
+        </button>
+      </div>
+      ): (
+        <div className="col-span-2 col-start-5 ml-auto">
+          <button onClick={handleRedirect} className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full">
+            Log In
           </button>
         </div>
       )}

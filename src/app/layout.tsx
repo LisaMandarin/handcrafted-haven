@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",
@@ -29,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} bg-custom-yellow-1 flex flex-col`}>
-        
+        <Providers>
           <AntdRegistry>
             <TopNav />
             <div className="px-6 lg:px-12 min-h-[calc(100vh-148px)] md:min-h-[calc(100vh-160px)]">
@@ -37,7 +38,7 @@ export default function RootLayout({
             </div>
             <Footer />
           </AntdRegistry>
-        
+        </Providers>
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
-import { getSession } from "@/utils/session";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import LoginButton from "@/components/LoginButton";
 import { Divider } from "antd";
 import dayjs from "dayjs";
@@ -49,7 +50,7 @@ async function fetchArtisan(id: string) {
 }
 
 export default async function ProfilePage() {
-  const session = await getSession();
+  const session = await getServerSession(authOptions)
   if (!session) {
     return (
       <>

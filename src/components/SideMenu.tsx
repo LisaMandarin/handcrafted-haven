@@ -5,24 +5,19 @@ import { IoPeopleSharp } from "react-icons/io5";
 import { FaGifts } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
-import { SlLogout } from "react-icons/sl";
+import { SlLogout, SlLogin } from "react-icons/sl";
+
 import Link from "next/link";
-import { SessionType, SetSessionType } from "@/types/data";
-import { handleLogout } from "@/utils/logout";
-import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 export function SideMenu({
   isOpen,
   onClose,
-  session,
-  setSession
 }: {
   isOpen: boolean;
   onClose: () => void;
-  session: SessionType;
-  setSession: SetSessionType
 }) {
-  const router = useRouter()
+  const {data: session} = useSession();
 
   // close the menu while clicking the link
   const handleClick = () => {
@@ -31,7 +26,7 @@ export function SideMenu({
 
   const handleSignOut = () => {
     onClose()
-    handleLogout({setSession, router})
+    signOut()
   }
   return (
     <Drawer
@@ -80,7 +75,7 @@ export function SideMenu({
             </Link>
           </li>
           <div className="flex flex-col items-start gap-8">
-            {session?.user ? (
+            {session ? (
               <>
                 <Link href="/dashboard" className="side-menu-link" onClick={handleClick}>
                   <div className="flex gap-4">
@@ -99,19 +94,11 @@ export function SideMenu({
                 <p>
                   <Link
                     href="/login"
-                    className="side-menu-link"
+                    className="side-menu-link flex gap-4"
                     onClick={handleClick}
                   >
+                    <SlLogin />
                     Log In
-                  </Link>
-                </p>
-                <p>
-                  <Link
-                    href="/signup"
-                    className="side-menu-link"
-                    onClick={handleClick}
-                  >
-                    Sign Up
                   </Link>
                 </p>
               </>

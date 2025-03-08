@@ -32,7 +32,7 @@ export async function GET(
       return NextResponse.json({
         message: "Failed to fetch artisan",
         data: null,
-      }, {status: 404});
+      }, {status: 200});
     }
 
     return NextResponse.json(
