@@ -4,10 +4,10 @@
 [https://handcrafted-haven-coral.vercel.app/](https://handcrafted-haven-coral.vercel.app/)
 
 ## Overview
-This Next.js project is a commercial web application that enables users to view products and manage their profiles, posts and purchases.
+Handcrafted Haven is a full-stack commercial web application built with Next.js. It allows users to browse products, manage their profiles, and create and manage posts and purchase records. The platform integrates secure authentication, dynamic API routes, and a responsive user interface to deliver a seamless shopping and content-sharing experience.
 
 ## Technology Stack
--- Front-end: React 19, Next.js, Tailwind CSS, Ant Design, Day.js
+-- Front-end: React 19, Next.js, Tailwind CSS, Ant Design, Responsive Web Design, Day.js
 
 -- Back-end: Next.js API Routes, PostgresSQL
 
