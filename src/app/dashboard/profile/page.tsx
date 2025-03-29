@@ -83,10 +83,6 @@ export default async function ProfilePage() {
                 <p className="w-2/3">{userProfile.email}</p>
               </div>
               <div className="flex flex-row gap-4 w-full">
-                <p className="w-1/3 text-right">Password</p>
-                <p className="w-2/3">******</p>
-              </div>
-              <div className="flex flex-row gap-4 w-full">
                 <p className="w-1/3 text-right">Registration Date: </p>
                 <p className="w-2/3">
                   {dayjs(userProfile.created_at).format("YYYY-MM-DD")}
