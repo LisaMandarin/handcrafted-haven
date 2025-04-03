@@ -61,30 +61,30 @@ export const authOptions: AuthOptions = {
     },
     callbacks: {
         // Check if the user exists in DB or create a new record
-        // async signIn({user} : {user: User}) {
-        //     try {
-        //         console.log('user: ', user)
-        //         const existingUser = await sql`
-        //             SELECT id FROM users 
-        //             WHERE email = ${user.email}
-        //             LIMIT 1
-        //         `
+        async signIn({user} : {user: User}) {
+            try {
+                console.log('user: ', user)
+                const existingUser = await sql`
+                    SELECT id FROM users 
+                    WHERE email = ${user.email}
+                    LIMIT 1
+                `
 
-        //         let userId = existingUser.rowCount !== null && existingUser.rowCount > 0 ? existingUser.rows[0].id : null
-        //         if (!userId) {
-        //             userId = crypto.randomUUID()
-        //             await sql`
-        //                 INSERT INTO users (id, email, username, created_at)
-        //                 VALUES (${userId}, ${user.email}, ${user.name ?? ""}, ${new Date().toISOString()} )
-        //             `
-        //         }
-        //         user.id = userId
-        //         return true
-        //     } catch (error) {
-        //         console.error("Database Error: ", error)
-        //         return false
-        //     }
-        // },
+                let userId = existingUser.rowCount !== null && existingUser.rowCount > 0 ? existingUser.rows[0].id : null
+                if (!userId) {
+                    userId = crypto.randomUUID()
+                    await sql`
+                        INSERT INTO users (id, email, username, created_at)
+                        VALUES (${userId}, ${user.email}, ${user.name ?? "unknown"}, ${new Date().toISOString()} )
+                    `
+                }
+                user.id = userId
+                return true
+            } catch (error) {
+                console.error("Database Error: ", error)
+                return false
+            }
+        },
 
         // Store user ID in the token
         async jwt({ token, user }: { token: JWT, user: User }) {
