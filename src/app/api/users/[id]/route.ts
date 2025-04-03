@@ -4,7 +4,7 @@ import { NextResponse } from "next/server"
 
 async function fetchUser(id: string) {
     const result = await sql`
-        SELECT u.username, u.email, u.created_at, u.password AS hashedPassword 
+        SELECT u.username, u.email, u.created_at, u.password AS hasedPassword 
         FROM users u
         WHERE u.id = ${id}
         LIMIT 1
