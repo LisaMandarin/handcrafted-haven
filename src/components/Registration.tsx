@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoEyeOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { FcGoogle } from "react-icons/fc";
+import { SocialIcon } from "react-social-icons";
 
 export default function Registration() {
-  const router = useRouter()
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -105,7 +108,7 @@ export default function Registration() {
 
       if (result.success) {
         alert(`${result.message}`);
-        router.push('/login')
+        router.push("/login");
       } else {
         alert(`${result.message}`);
       }
@@ -190,7 +193,7 @@ export default function Registration() {
           >
             {showConfirmPassword ? <AiOutlineEyeInvisible /> : <IoEyeOutline />}
           </span>
-          
+
           {errors.confirmPassword && (
             <p className="text-sm text-red-600 px-2 absolute left-0">
               {errors.confirmPassword}
@@ -208,6 +211,31 @@ export default function Registration() {
           />
         </div>
       </form>
+      <div className="space-y-2">
+        <p className="text-center">OR</p>
+        <div
+          onClick={() => signIn("google", {callbackUrl: "/"})}
+          className="flex items-center rounded-lg border border-gray-400 hover:shadow-md cursor-pointer"
+        >
+          <div className="w-12 text-xl p-2">
+            <FcGoogle />
+          </div>
+          <p>Sign in with Google</p>
+        </div>
+        <div
+          onClick={() => signIn("facebook", {callbackUrl: "/"})}
+          className="flex items-center rounded-lg border border-gray-400 hover:shadow-md cursor-pointer"
+        >
+          <div className="w-12 text-xl p-2">
+            <SocialIcon
+              network="facebook"
+              style={{ width: 20, height: 20 }}
+              label="My Facebook channel"
+            />
+          </div>
+          <p>Sign in with Facebook</p>
+        </div>
+      </div>
     </div>
   );
 }

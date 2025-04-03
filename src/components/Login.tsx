@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import { SocialIcon } from "react-social-icons";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -68,6 +69,7 @@ export default function Login() {
           </div>
           <button className="w-full text-lg p-2 rounded-xl text-white bg-custom-yellow-2 active:bg-custom-brown-1">Log In</button>
         </form>
+        <p className="text-center hover:underline text-blue-600"><Link href="/signup">Don&apos;t have an account yet?</Link></p>
         <p className="text-center">OR</p>
         <div onClick={() => signIn("google", {callbackUrl: callbackUrl })} className="flex items-center rounded-lg border border-gray-400 hover:shadow-md cursor-pointer">
           <div className="w-12 text-xl p-2"><FcGoogle /></div>
