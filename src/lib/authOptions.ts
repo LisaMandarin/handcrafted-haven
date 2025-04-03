@@ -4,7 +4,6 @@ import Google from "next-auth/providers/google"
 import Facebook from "next-auth/providers/facebook"
 import Credentials from "next-auth/providers/credentials"
 import { sql } from "@vercel/postgres"
-import { error } from "console"
 import bcrypt from "bcryptjs"
 
 export const authOptions: AuthOptions = {
@@ -33,7 +32,7 @@ export const authOptions: AuthOptions = {
                         SELECT id, email, password FROM users WHERE email = ${credentials.email}
                     `
                     if (result.rowCount === 0) {
-                        throw new Error("User not found")
+                        throw new Error("UserNotFound")
                     }
 
                     const isValidPW = await bcrypt.compare(credentials.password, result.rows[0].password);
@@ -49,17 +48,12 @@ export const authOptions: AuthOptions = {
                     console.error("Authentication error: ", error)
                     throw new Error("Invalid credentials")
                 }
-
-                    
-                const user = { email: credentials?.email, password: credentials?.password }
-                if (user) {
-                    return user;
-                } else {
-                    return null;
-                }
             }
         })
     ],
+    pages: {
+        error: "/login"
+    },
     callbacks: {
         // Check if the user exists in DB or create a new record
         // async signIn({user} : {user: User}) {

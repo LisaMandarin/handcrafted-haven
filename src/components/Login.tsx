@@ -3,8 +3,8 @@
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { SocialIcon } from "react-social-icons";
-import { useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -12,20 +12,22 @@ export default function Login() {
     password: ""
   })
   const searchParams = useSearchParams();
+  const router = useRouter();
   const callbackUrl = searchParams.get("callbackUrl") || "/"
+  const error = searchParams.get("error")
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('form: ', formData)
+    
     // do something to sign in via NextAuth credential
     const result =await signIn("credentials", {
-      redirect: false,
+      redirect: true,
       email: formData?.email,
       password: formData?.password,
       callbackUrl: callbackUrl
     });
-    
-    if (result?.ok) {
-      window.location.href = callbackUrl;
+
+    if (result?.ok && result?.url) {
+      window.location.href = result.url;
     }
   }
   
@@ -33,6 +35,11 @@ export default function Login() {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value})
   }
+  useEffect(() => {
+    if (error === "UserNotFound") {
+      router.push("/signup")
+    }
+  }, [error])
 
   return (
     <div className="max-w-[370px] w-full">
