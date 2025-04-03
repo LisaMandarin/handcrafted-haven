@@ -4,7 +4,6 @@ import Google from "next-auth/providers/google"
 import Facebook from "next-auth/providers/facebook"
 import Credentials from "next-auth/providers/credentials"
 import { sql } from "@vercel/postgres"
-import { error } from "console"
 import bcrypt from "bcryptjs"
 
 export const authOptions: AuthOptions = {
@@ -42,21 +41,16 @@ export const authOptions: AuthOptions = {
                     }
 
                     return {
-                        id: result.rows[0].id,
-                        email: result.rows[0].email
-                    } 
+                        id: String(result.rows[0].id), // Ensure id is a string
+                        email: result.rows[0].email,
+                        name: null, // Add optional fields to conform to the User interface
+                        image: null
+                    }
                 } catch (error) {
                     console.error("Authentication error: ", error)
                     throw new Error("Invalid credentials")
                 }
-
-                    
-                const user = { email: credentials?.email, password: credentials?.password }
-                if (user) {
-                    return user;
-                } else {
-                    return null;
-                }
+                
             }
         })
     ],

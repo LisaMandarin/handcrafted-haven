@@ -15,7 +15,7 @@ export default function Login() {
   const callbackUrl = searchParams.get("callbackUrl") || "/"
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('form: ', formData)
+    
     // do something to sign in via NextAuth credential
     const result =await signIn("credentials", {
       redirect: false,
