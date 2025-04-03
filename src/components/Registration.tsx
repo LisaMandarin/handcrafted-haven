@@ -82,15 +82,10 @@ export default function Registration() {
     };
     setErrors(newErrors);
 
-    const hasError = (value: string) => {
-      if (value) {
-        return true;
-      }
-    };
-
-    if (Object.values(newErrors).some(hasError)) {
+    const hasError = Object.values(newErrors).some((value) => value !== "");
+    if (hasError) {
       alert("Form has errors");
-      return;
+      return
     }
 
     try {
