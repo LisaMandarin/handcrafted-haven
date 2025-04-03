@@ -13,15 +13,22 @@ export default function Login() {
   })
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/"
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('form: ', formData)
     // do something to sign in via NextAuth credential
-    setFormData({
-      email: "",
-      password: ""
-    })
+    const result =await signIn("credentials", {
+      redirect: false,
+      email: formData?.email,
+      password: formData?.password,
+      callbackUrl: callbackUrl
+    });
+    
+    if (result?.ok) {
+      window.location.href = callbackUrl;
+    }
   }
+  
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value})
