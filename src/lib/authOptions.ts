@@ -44,9 +44,14 @@ export const authOptions: AuthOptions = {
                         id: result.rows[0].id,
                         email: result.rows[0].email
                     } 
-                } catch (error) {
-                    console.error("Authentication error: ", error)
-                    throw new Error("Invalid credentials")
+                } catch (error: unknown) {
+                    if (error instanceof Error) {
+                        console.error("Authentication error: ", error.message);
+                        throw new Error(error.message);
+                    } else {
+                        console.error("Unknown authentication error: ", error);
+                        throw new Error("Unknown error occurred");
+                    }
                 }
             }
         })
