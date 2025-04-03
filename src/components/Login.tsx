@@ -64,8 +64,6 @@ export default function Login() {
           <p>Sign in with Facebook</p>
         </div>
       </div>
-
-      
     </div>
   );
 }
