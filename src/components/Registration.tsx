@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { SocialIcon } from "react-social-icons";
+import Link from "next/link";
 
 export default function Registration() {
   const router = useRouter();
@@ -202,10 +203,11 @@ export default function Registration() {
           <input
             type="submit"
             value="Join Handcrafted-Haven"
-            className="w-full bg-custom-dark-brown text-white py-2 rounded-xl text-lg font-bold mt-8 cursor-pointer hover:bg-custom-brown-1"
+            className="w-full bg-custom-dark-brown text-white py-2 rounded-xl text-lg font-bold cursor-pointer hover:bg-custom-brown-1"
           />
         </div>
       </form>
+      <p className="text-center text-blue-600 hover:underline cursor-pointer my-2"><Link href="/login">Have an account already?</Link></p>
       <div className="space-y-2">
         <p className="text-center">OR</p>
         <div
