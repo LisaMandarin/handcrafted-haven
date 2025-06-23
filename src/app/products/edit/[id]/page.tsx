@@ -1,5 +1,25 @@
-export default function EditProduct() {
+import { ParamsType} from "@/types/data"
+import { fetchProduct } from "../../[id]/page";
+import ProductDetailEditable from "@/components/ProductDetailEditable";
+
+export default async function EditProduct({params}: {params: Promise<ParamsType>}) {
+    const {id} = await params;
+    const product = await fetchProduct(id);
+
     return (
-        <>Edit product</>
+        <div>
+            {product && (
+                <ProductDetailEditable product={product}/>
+            )}
+        </div>
     )
 }
+
+
+
+
+
+
+
+
+

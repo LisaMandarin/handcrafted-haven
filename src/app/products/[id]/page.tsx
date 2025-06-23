@@ -1,8 +1,9 @@
 import ProductDetail from "@/components/ProductDetail";
 import ReviewListing from "@/components/ReviewListing";
 import { ParamsType, ReviewsType } from "@/types/data";
+import { ProductDetailType } from "@/types/data";
 
-async function fetchProduct(id: string) {
+export async function fetchProduct(id: string): Promise<ProductDetailType> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/id/${id}`,
     {cache: "no-store"}
@@ -15,9 +16,7 @@ async function fetchProduct(id: string) {
   return data;
 }
 
-
-
-async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
+export async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/product/${id}`,
     {cache: "no-store"}

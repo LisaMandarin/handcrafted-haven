@@ -32,6 +32,7 @@ export type ArtisanDetailType = {
 };
 
 export type ProductDetailType = {
+  id?: string;
   product_name: string;
   image_url: string;
   category_name: string;
@@ -106,4 +107,11 @@ export type UserType = {
   username: string;
   email: string;
   created_at: string;
+}
+
+export type UpdateButtonType = {
+    editMode: boolean;
+    onEdit: () => void;
+    onUpdate: () => void;
+    onCancel: () => void;
 }
