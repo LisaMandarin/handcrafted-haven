@@ -1,7 +1,7 @@
 'use client'
 
 import LoginButton from "@/components/LoginButton";
-import { Divider } from "antd";
+import { Divider, Spin } from "antd";
 import dayjs from "dayjs";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -123,6 +123,11 @@ export default function ProfilePage() {
 
   return (
     <>
+      {status == 'loading' && (
+        <div className="w-full flex justify-center items-center">
+          <Spin size="large"/>
+        </div>
+      )}
       {!session && (
         <p>Please <LoginButton /></p>
       )}
