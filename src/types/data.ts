@@ -98,3 +98,12 @@ export type DashboardPurchaseType = {
   created_at: string;
   comment: string;
 }
+
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export type UserType = {
+  id: string;
+  username: string;
+  email: string;
+  created_at: string;
+}

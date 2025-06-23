@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres"
 import { ParamsType } from "@/types/data"
 import { NextResponse } from "next/server"
+import { ArtisanDetailType } from "@/types/data"
 
 async function fetchArtisanById(id: string) {
     const result = await sql`
@@ -23,6 +24,15 @@ async function fetchArtisanById(id: string) {
         LIMIT 1
     `
     return result.rows[0] || []
+}
+
+async function updateArtisanById(id: string, data: ArtisanDetailType) {
+    const result = sql`
+    UPDATE artisans 
+    SET first_name=${data.first_name}, last_name=${data.last_name}, address=${data.address}, image_url=${data.image_url}, introduction=${data.introduction}
+    WHERE id = ${id}
+    `
+    return result;
 }
 
 export async function GET(req: Request, {params}: {params: Promise<ParamsType>}) {
@@ -57,4 +67,26 @@ export async function GET(req: Request, {params}: {params: Promise<ParamsType>})
         )
     }
 
+}
+
+export async function PUT(req: Request, {params}: {params: Promise<ParamsType>}) {
+    const {id} = await params;
+    if (!id) {
+            return NextResponse.json({ message: "Invalid artisan ID", success: false}, { status: 400 })
+        }
+    try {
+        const body = await req.json();
+        const result = await updateArtisanById(id, body);
+        if ((result.rowCount ?? 0) > 0) {
+            return NextResponse.json({ message: `Artisan ${id} updated successfully`, success: true})
+        } else {
+            return NextResponse.json({ message: `Failed to update Artisan ${id}`, success: false}, {status: 404})
+        }
+    } catch (error) {
+        return NextResponse.json({
+            message: "Server Error while updating artisan by id",
+            error: error instanceof Error ? error.message : error,
+            success: false
+         },{status: 500})
+    }
 }

@@ -13,9 +13,9 @@ export default async function Layout({
   return (
     <>
       {session ? (
-        <div className="flex flex-col lg:flex-row lg:min-h-[calc(100vh-160px)] gap-4">
+        <div className="flex flex-col lg:flex-row lg:max-h-[calc(100vh-160px)] gap-4">
           <DashboardNav />
-          <div className="flex-grow">{children}</div>
+          <div className="flex-grow overflow-auto">{children}</div>
         </div>
       ) : (
         <div className="py-4">
