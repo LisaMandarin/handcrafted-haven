@@ -1,5 +1,5 @@
 import { ParamsType} from "@/types/data"
-import { fetchProduct } from "../../[id]/page";
+import { fetchProduct } from "@/lib/util";
 import ProductDetailEditable from "@/components/ProductDetailEditable";
 
 export default async function EditProduct({params}: {params: Promise<ParamsType>}) {

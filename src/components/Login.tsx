@@ -6,7 +6,6 @@ import { SocialIcon } from "react-social-icons";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { PassThrough } from "stream";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -78,7 +77,7 @@ export default function Login() {
     if (error === "UserNotFound") {
       router.push("/signup")
     }
-  }, [error])
+  }, [error, router])
 
   return (
     <div className="max-w-[370px] w-full">

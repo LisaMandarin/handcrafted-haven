@@ -1,22 +1,9 @@
 import ProductDetail from "@/components/ProductDetail";
 import ReviewListing from "@/components/ReviewListing";
 import { ParamsType, ReviewsType } from "@/types/data";
-import { ProductDetailType } from "@/types/data";
+import { fetchProduct } from "@/lib/util";
 
-export async function fetchProduct(id: string): Promise<ProductDetailType> {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/id/${id}`,
-    {cache: "no-store"}
-  );
-
-  if (!res.ok) {
-    console.error("Unable to fetch the product by ID: ", res.statusText);
-  }
-  const { data } = await res.json();
-  return data;
-}
-
-export async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
+async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/product/${id}`,
     {cache: "no-store"}
