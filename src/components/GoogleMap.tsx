@@ -1,6 +1,6 @@
 export default function GoogleMap({address}: {address: string}) {
     const encodedAddress= encodeURIComponent(address);
-    const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
     
     return (
         <div className="flex justify-center">
