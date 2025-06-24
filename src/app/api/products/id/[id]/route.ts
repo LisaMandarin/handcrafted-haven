@@ -18,7 +18,7 @@ async function fetchProductById(id: string) {
 async function updateProductById(id: string, data: ProductDetailType ) {
   const result = await sql`
     UPDATE products
-    SET product_name=${data.product_name}, description=${data.description}, quantity=${data.quantity}, price=${data.price}
+    SET product_name=${data.product_name}, description=${data.description}, quantity=${data.quantity}, price=${data.price}, category_id=${data.category_id}
     WHERE id=${id}
   `
   return result;

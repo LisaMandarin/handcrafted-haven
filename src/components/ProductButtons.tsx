@@ -47,7 +47,7 @@ export default function ProductButtons({id}: {id: string}) {
       <Link href={`/products/${id}`} target="_blank">
         <EyeOutlined />
       </Link>
-      <Link href={`/products/edit/${id}`}>
+      <Link href={`/products/edit/${id}`} target="_blank">
         <EditOutlined />
       </Link>
       <Popconfirm title="Warning" description="Are you sure you want to delete this product? It will be gone forever." onConfirm={confirmDelete} onCancel={cancelDelete} okText="Yes" cancelText="No">
