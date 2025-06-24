@@ -2,23 +2,7 @@ import Title from "@/components/Title"
 import Link from "next/link"
 import CategoryCard from "@/components/CategoryCard"
 import { CategoryType } from "@/types/data"
-
-async function fetchCategories() {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`)
-
-        if (!response.ok) {
-            console.error('No categories found')
-            return
-        }
-
-        const {data} = await response.json()
-
-        return data
-    } catch (error) {
-        console.error('Unable to fetch Categories: ', error)
-    }
-}
+import { fetchCategories } from "@/lib/util"
 
 export default async function CategoriesPage() {
     const breadcrumbItems = [

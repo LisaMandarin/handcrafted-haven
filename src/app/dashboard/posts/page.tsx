@@ -2,6 +2,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import LoginButton from "@/components/LoginButton";
 import PostTable from "@/components/PostTable";
+import Link from "next/link";
+import { VscNewFile } from "react-icons/vsc";
 
 async function fetchArtisan(id: string) {
   try {
@@ -70,6 +72,21 @@ export default async function PostsPage() {
     <>
       {session && products.length > 0 && (
         <div className="w-full overflow-auto">
+          <div className="flex flex-row gap-4 items-center mt-4">
+            <h1 className="font-bold text-xl">
+            I want to post a new product            
+          </h1>
+            <Link href={`/products/add/${artisan?.id}`} target="_blank">
+              <button className="inline-block px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full">
+                <span className="mr-2">Post</span>
+                <VscNewFile className="inline"/>
+              </button>
+            </Link>
+          </div>
+
+          {/* dividing line */}
+          <div className="w-full h-[4px] bg-custom-brown-2 my-4"></div>
+          
           <h1 className="font-bold text-xl">Products I have posted</h1>
           <PostTable products={products} />
         </div>

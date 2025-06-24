@@ -5,6 +5,7 @@ import TopNav from "@/components/TopNav";
 import Footer from "@/components/Footer";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Providers from "@/components/Providers";
+import '@ant-design/v5-patch-for-react-19';
 
 export const metadata: Metadata = {
   title: "Handcrafted Haven",

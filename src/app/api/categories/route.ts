@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 async function listCategories() {
   
     const result = await sql`
-        SELECT * FROM categories
+        SELECT * FROM categories Order BY category_name
     `;
     return result.rows || [];
 }

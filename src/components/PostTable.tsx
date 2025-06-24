@@ -50,7 +50,7 @@ export default function PostTable({
                 <div className="flex items-center gap-2">
                   <div className="w-20 min-w-20">
                     <Image
-                      src={p.image_url}
+                      src={p.image_url || "/placeholder/image-placeholder.webp"}
                       width={100}
                       height={100}
                       alt={`image of ${p.product_name}`}

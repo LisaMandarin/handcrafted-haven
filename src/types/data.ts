@@ -64,7 +64,7 @@ export type SearchParamsType = {
 };
 
 export type ProductCardType = {
-  id: string;
+  id?: string;
   product_name: string;
   image_url: string;
   price?: number;
@@ -114,4 +114,16 @@ export type UpdateButtonType = {
     onEdit: () => void;
     onUpdate: () => void;
     onCancel: () => void;
+}
+
+export type ProductType = {
+  id?: string;
+  product_name: string;
+  price: number;
+  quantity: number;
+  description: string;
+  image_url?: string;
+  created_at?: string;
+  artisan_id: string;
+  category_id: string;
 }

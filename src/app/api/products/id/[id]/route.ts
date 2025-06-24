@@ -24,6 +24,13 @@ async function updateProductById(id: string, data: ProductDetailType ) {
   return result;
 }
 
+async function deleteProductById(id: string) {
+  const result = await sql`
+    DELETE FROM products WHERE id=${id}
+  `
+  return result;
+}
+
 export async function GET(req: Request, {params} : {params: Promise<ParamsType>}) {
   try {
     const { id } = await params;
@@ -75,6 +82,28 @@ export async function PUT(req: Request, {params}: {params: Promise<ParamsType>})
     } catch (error) {
         return NextResponse.json({
             message: "Server Error while updating product by id",
+            error: error instanceof Error ? error.message : error,
+            success: false
+         },{status: 500})
+    }
+}
+
+
+export async function DELETE(req: Request, {params}: {params: Promise<ParamsType>}) {
+    const {id} = await params;
+    if (!id) {
+            return NextResponse.json({ message: "Invalid product ID", success: false}, { status: 400 })
+        }
+    try {
+        const result = await deleteProductById(id);
+        if ((result.rowCount ?? 0) > 0) {
+            return NextResponse.json({ message: `Product ${id} deleted successfully`, success: true})
+        } else {
+            return NextResponse.json({ message: `Failed to delete Product ${id}`, success: false}, {status: 404})
+        }
+    } catch (error) {
+        return NextResponse.json({
+            message: "Server Error while deleting product by id",
             error: error instanceof Error ? error.message : error,
             success: false
          },{status: 500})
