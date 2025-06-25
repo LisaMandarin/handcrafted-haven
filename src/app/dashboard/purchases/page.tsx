@@ -15,7 +15,7 @@ async function fetchReviews(id: string) {
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/user/${id}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/user/${id}`, {cache: "no-store"}
     );
     if (!response.ok) {
       console.error("Unable to fetch Reviews");
