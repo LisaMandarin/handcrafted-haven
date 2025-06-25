@@ -83,7 +83,7 @@ export default async function Purchases() {
                     <div>{r.comment}</div>
                     <div className="text-xs">{dayjs(r.created_at).format("YYYY-MM-DD")}</div>
                   </td>
-                  <td><ReviewButtons id={r.id}/></td>
+                  <td><ReviewButtons reviewData={r}/></td>
                 </tr>
               ))}
             </tbody>
