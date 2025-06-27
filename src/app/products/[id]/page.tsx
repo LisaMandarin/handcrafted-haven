@@ -3,6 +3,9 @@ import ReviewListing from "@/components/ReviewListing";
 import { ParamsType, ReviewsType } from "@/types/data";
 import { fetchProduct } from "@/lib/util";
 import OrderForm from "@/components/OrderForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import LoginButton from "@/components/LoginButton";
 
 async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
   const res = await fetch(
@@ -23,6 +26,8 @@ export default async function ProductIdPage({
 }: {
   params: Promise<ParamsType>;
 }) {
+  const session = await getServerSession(authOptions);
+
   const { id } = await params;
   const [product, reviews] = await Promise.all([
     fetchProduct(id),
@@ -46,9 +51,17 @@ export default async function ProductIdPage({
           artisan_id={product.artisan_id}
         />
       )}
-      {product && (
-        <OrderForm product={product}/>
+      {!session ? (
+        <>
+          <p>You will only see this if you are not authenticated.</p>
+          <p className=" text-custom-brown-1">
+            Please <LoginButton />
+          </p>
+        </>
+      ) : (
+        <OrderForm product={product} session={session}/>
       )}
+      
       <h2 className="text-2xl font-bold my-2">Reviews</h2>
       <div className="flex flex-col">
         {reviews.length > 0 ?

@@ -128,7 +128,10 @@ export type ProductType = {
   category_id: string;
 }
 
-export type orderFormType = {
-  id: string;  
+export type cartType = {
+  id?: string;
+  created_at?: string;
+  product_id?: string;
+  user_id?: string;
   quantity: number;
 }

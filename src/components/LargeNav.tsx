@@ -13,6 +13,9 @@ import { CategoryType } from "@/types/data";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { LuShoppingCart } from "react-icons/lu";
+import { Badge } from "antd";
+import { useSelector} from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function LargeNav() {
   const pathname = usePathname();
@@ -20,6 +23,7 @@ export default function LargeNav() {
   const [currentUrl, setCurrentUrl] = useState("/");
   const { data: session } = useSession();
   const [categories, setCategories] = useState<CategoryType[]>([]);
+  const cartQuantity = useSelector((state: RootState) => state.cart.totalQuantity)
   const artisansItems: MenuProps["items"] = [
     {
       key: "1",
@@ -81,7 +85,7 @@ export default function LargeNav() {
     fetchCategories();
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { 
     setCurrentUrl(pathname);
   }, [pathname]);
 
@@ -106,7 +110,10 @@ export default function LargeNav() {
         <div className="col-span-2 col-start-5 flex justify-end items-center gap-4">
           <Link href="/shopping-cart">
             <div>
+              <Badge count={cartQuantity}>
               <LuShoppingCart className="text-4xl"/>
+
+              </Badge>
             </div>
           </Link>
           <Link href="/dashboard">
