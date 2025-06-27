@@ -127,3 +127,8 @@ export type ProductType = {
   artisan_id: string;
   category_id: string;
 }
+
+export type orderFormType = {
+  id: string;  
+  quantity: number;
+}

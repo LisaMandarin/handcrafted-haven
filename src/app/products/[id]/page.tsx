@@ -46,7 +46,9 @@ export default async function ProductIdPage({
           artisan_id={product.artisan_id}
         />
       )}
-      <OrderForm />
+      {product && (
+        <OrderForm product={product}/>
+      )}
       <h2 className="text-2xl font-bold my-2">Reviews</h2>
       <div className="flex flex-col">
         {reviews.length > 0 ?
