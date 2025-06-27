@@ -9,7 +9,7 @@ async function deleteReviewById(id: string) {
   return result;
 }
 
-export async function DELETE({params}: {params: Promise<ParamsType>}) {
+export async function DELETE(_req: Request, {params}: {params: Promise<ParamsType>}) {
     const {id} = await params;
     if (!id) {
             return NextResponse.json({ message: "Invalid review ID", success: false}, { status: 400 })
