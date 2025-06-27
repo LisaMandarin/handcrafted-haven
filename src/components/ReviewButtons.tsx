@@ -1,7 +1,7 @@
 "use client";
 
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { message, Modal } from "@/lib/antd";
+import { message, Modal, Popconfirm } from "@/lib/antd";
 import { useState } from "react";
 import EditReviewModal from "./EditReviewModal";
 import { DashboardPurchaseType } from "@/types/data";
@@ -28,6 +28,31 @@ async function updateReview(body: DashboardPurchaseType) {
     return false;
   }
 }
+
+async function deleteReview(id: string) {
+  try {
+    if (!id) {
+      console.error("Invalid id")
+      return false
+    }
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/reviews/id/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
+    if (!response.ok) {
+      console.error("Unable to delete the review");
+      return false;
+    }
+    const { success } = await response.json();
+    return success;
+  } catch (error) {
+    console.error("Failed to delete the review: ", error);
+    return false;
+  }
+}
+
 export default function ReviewButtons({
   reviewData,
 }: {
@@ -35,8 +60,8 @@ export default function ReviewButtons({
 }) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [oldFormData, setOldFormData] = useState(reviewData);
-  const [newFormData, setNewFormData] = useState(reviewData);
+  const [oldFormData, setOldFormData] = useState(reviewData);  // to control modal (reset the data when editing is canceled)
+  const [newFormData, setNewFormData] = useState(reviewData);  // to control modal (update the data when editing)
   const showModal = () => {
     setNewFormData(oldFormData);
     setIsModalOpen(true);
@@ -60,15 +85,21 @@ export default function ReviewButtons({
     setNewFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const deleteReview = (id: string) => {
-    alert(`${id} is going to be deleted`);
+  const handleDelete = async(id: string) => {
+    const success = await deleteReview(id)
+    if (success) {
+      message.success("This review deleted successfully")
+      router.refresh();
+    }
   };
 
   return (
     <>
       <div className="space-x-4 min-w-20">
         <EditOutlined onClick={showModal} />
-        <DeleteOutlined onClick={() => deleteReview(reviewData.id)} />
+        <Popconfirm title="Warning" description="Are you sure you want to delete this review?" onConfirm={() => handleDelete(reviewData.id)} okText="Yes" cancelText="No">
+          <DeleteOutlined />
+        </Popconfirm>
       </div>
 
       <Modal

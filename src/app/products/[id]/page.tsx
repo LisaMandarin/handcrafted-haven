@@ -2,6 +2,7 @@ import ProductDetail from "@/components/ProductDetail";
 import ReviewListing from "@/components/ReviewListing";
 import { ParamsType, ReviewsType } from "@/types/data";
 import { fetchProduct } from "@/lib/util";
+import OrderForm from "@/components/OrderForm";
 
 async function listReviewsByProductId(id: string): Promise<ReviewsType[]> {
   const res = await fetch(
@@ -45,6 +46,7 @@ export default async function ProductIdPage({
           artisan_id={product.artisan_id}
         />
       )}
+      <OrderForm />
       <h2 className="text-2xl font-bold my-2">Reviews</h2>
       <div className="flex flex-col">
         {reviews.length > 0 ?

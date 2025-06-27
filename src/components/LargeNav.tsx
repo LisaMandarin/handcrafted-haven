@@ -12,12 +12,13 @@ import SearchBar from "./SearchBar";
 import { CategoryType } from "@/types/data";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { LuShoppingCart } from "react-icons/lu";
 
 export default function LargeNav() {
-  const pathname = usePathname()
-  const router = useRouter()
-  const [currentUrl, setCurrentUrl] = useState('/')
-  const {data: session} = useSession();
+  const pathname = usePathname();
+  const router = useRouter();
+  const [currentUrl, setCurrentUrl] = useState("/");
+  const { data: session } = useSession();
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const artisansItems: MenuProps["items"] = [
     {
@@ -61,9 +62,11 @@ export default function LargeNav() {
   }));
 
   const handleRedirect = () => {
-    const redirectedLink = `/login?callbackUrl=${encodeURIComponent(currentUrl)}`
-    router.push(redirectedLink)
-  }
+    const redirectedLink = `/login?callbackUrl=${encodeURIComponent(
+      currentUrl
+    )}`;
+    router.push(redirectedLink);
+  };
 
   useEffect(() => {
     async function fetchCategories() {
@@ -79,8 +82,8 @@ export default function LargeNav() {
   }, []);
 
   useEffect(() => {
-    setCurrentUrl(pathname)
-  }, [pathname])
+    setCurrentUrl(pathname);
+  }, [pathname]);
 
   return (
     <div className="px-6 py-3 grid grid-flow-row grid-cols-6 gap-1">
@@ -101,22 +104,30 @@ export default function LargeNav() {
       {/* buttons section */}
       {session ? (
         <div className="col-span-2 col-start-5 flex justify-end items-center gap-4">
-        <Link href="/dashboard">
-          <div className="flex items-center">
-            <RxAvatar className="text-4xl" />
-            <span className="text-xl">Dashboard</span>
-          </div>
-        </Link>
-        <button
-          onClick={() => signOut()}
-          className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full"
-        >
-          Log Out
-        </button>
-      </div>
-      ): (
+          <Link href="/shopping-cart">
+            <div>
+              <LuShoppingCart className="text-4xl"/>
+            </div>
+          </Link>
+          <Link href="/dashboard">
+            <div className="flex items-center">
+              <RxAvatar className="text-4xl" />
+              <span className="text-xl">Dashboard</span>
+            </div>
+          </Link>
+          <button
+            onClick={() => signOut()}
+            className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full"
+          >
+            Log Out
+          </button>
+        </div>
+      ) : (
         <div className="col-span-2 col-start-5 ml-auto">
-          <button onClick={handleRedirect} className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full">
+          <button
+            onClick={handleRedirect}
+            className="px-3 py-1 lg:px-6 h-fit bg-custom-dark-brown text-custom-yellow-1 md:rounded-3xl lg:rounded-full"
+          >
             Log In
           </button>
         </div>
