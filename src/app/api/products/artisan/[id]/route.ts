@@ -12,37 +12,52 @@ async function fetchProductsByArtisanId(id: string) {
         WHERE p.artisan_id = ${id}
     `;
 
-    return result.rows || []
+  return result.rows || [];
 }
 
-export async function GET(req: Request, {params}: {params: Promise<ParamsType>}) {
-    try {
-        const {id} = await params
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<ParamsType> }
+) {
+  try {
+    const { id } = await params;
 
-        if (!id) {
-            return NextResponse.json({
-                message: "ID is missing",
-                data: []
-            }, {status: 400})
-        }
-    
-        const result = await fetchProductsByArtisanId(id);
-    
-        if (!result || result.length ===0) {
-            return NextResponse.json({
-                message: "No products belonging to this artisan",
-                data: []
-            }, {status: 404})
-        }
-    
-        return NextResponse.json({
-            message: "Fetch products belonging to this artisan successfully",
-            data: result
-        }, {status: 200})
-    } catch (error) {
-        return NextResponse.json({
-            message: "Server error: ",
-            error
-        }, {status: 500})
+    if (!id) {
+      return NextResponse.json(
+        {
+          message: "ID is missing",
+          data: [],
+        },
+        { status: 400 }
+      );
     }
+
+    const result = await fetchProductsByArtisanId(id);
+
+    if (!result || result.length === 0) {
+      return NextResponse.json(
+        {
+          message: "No products belonging to this artisan",
+          data: [],
+        },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        message: "Fetch products belonging to this artisan successfully",
+        data: result,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Server error: ",
+        error,
+      },
+      { status: 500 }
+    );
+  }
 }
